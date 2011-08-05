@@ -2,7 +2,7 @@ body {
     font-family: helvetica, arial, clean, sans-serif;
     font-size: 14px;
     color: #000;
-    background-color: #E3E3E3;
+    background-color: #E0E0E0;
 }
 
 .highlight {
@@ -30,20 +30,20 @@ h1, h2 {
 }
 
 div.project {
-    border: 1px solid #DADADA;
+    border: 1px solid #CCC;
     border-radius: 5px;
-    background-color: #F7F7F7;
+    background-color: #F4F4F4;
 }
 
 div.project-head {
-    padding: 2px 8px 4px 8px;
-    border-bottom: 1px solid #DADADA;
+    padding: 3px 12px 6px 12px;
+    border-bottom: 1px solid #CCC;
     border-radius: 5px 5px 0px 0px;
-    background-color: #E5E5E5;
+    background-color: #E0E0E0;
 }
 
 div.project-body {
-    padding: 4px 8px 6px 8px;
+    padding: 6px 12px 9px 12px;
 }
 
 td.about-l {
@@ -56,24 +56,29 @@ td.about-r {
     border-right: 1px solid #CCC;
 }
 
+li.post {
+    margin-bottom: 20px;
+}
+
 td.light-l { background-color: #ECECEC; }
 td.dark-l { background-color: #DADADA; }
 td.light-r { background-color: #F7F7F7; }
 td.dark-r { background-color: #E5E5E5; }
 
 div#container {
-    margin: 2px 13% 2px 13%;
-    border: 1px solid #BBB;
+    width: 800px;
+    margin: 16px auto 16px auto;
+    border: 1px solid #999;
     border-radius: 10px;
     background-color: #FFF;
 }
 
 div#header {
-    margin: 8px 8px 18px 8px;
+    margin: 12px 12px 20px 12px;
     padding: 15px 0px 15px 0px;
-    border: 1px solid #BBB;
+    border: 1px solid #999;
     border-radius: 10px 10px 0px 0px;
-    background-color: #DDEEDD;
+    background-color: #DED;
 }
 
 div#content {
@@ -101,10 +106,15 @@ td#right-box {
     vertical-align: top;
 }
 
-td#about-tl { border-top-left-radius: 5px; border-top: 1px solid #CCC; }
-td#about-tr { border-top-right-radius: 5px; border-top: 1px solid #CCC; }
-td#about-bl { border-bottom-left-radius: 5px; border-bottom: 1px solid #CCC; }
-td#about-br { border-bottom-right-radius: 5px; border-bottom: 1px solid #CCC; }
+hr {
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+
+td#about-tl { border-top-left-radius: 5px; border-top: 1px solid #AAA; }
+td#about-tr { border-top-right-radius: 5px; border-top: 1px solid #AAA; }
+td#about-bl { border-bottom-left-radius: 5px; border-bottom: 1px solid #AAA; }
+td#about-br { border-bottom-right-radius: 5px; border-bottom: 1px solid #AAA; }
 
 a:link { color: #373; text-decoration: none; }
 a:visited { color: #373; text-decoration: none; }

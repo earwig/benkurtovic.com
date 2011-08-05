@@ -24,7 +24,7 @@ layout: base
                     </tr>
                     <tr>
                         <td class="about-l light-l">PGP Key</td>
-                        <td class="about-r light-r"><a href="http://pgp.mit.edu:11371/pks/lookup?search=0x8A19649AE8DBB515&fingerprint=on&op=index">E8DBB515</a></td>
+                        <td class="about-r light-r"><a href="http://pgp.mit.edu:11371/pks/lookup?search=0x8A19649AE8DBB515&amp;fingerprint=on&amp;op=index">E8DBB515</a></td>
                     </tr>
                     <tr>
                         <td class="about-l dark-l">GitHub</td>
@@ -54,7 +54,7 @@ layout: base
                 <h2 class="topless">Posts</h2>
                 <ul>
                     {% for post in site.posts %}
-                        <li>{{ post.date | date: "%b %d, %Y" }}: <a class="invert" href="{{ post.url }}">{{ post.title }}</a><br /><span class="description">{{ post.description }}</span></li>
+                        <li class="post">{{ post.date | date: "%b %d, %Y" }}: <a class="invert" href="{{ post.url }}">{{ post.title }}</a><br /><span class="description">{{ post.description }}</span></li>
                     {% endfor %}
                 </ul>
             </td>

@@ -1,2 +1,5 @@
 # Ignore jekyll-generated site:
 _site/
+
+# Damnit, Apple!
+.DS_Store
