@@ -2,11 +2,9 @@
 layout: base
 ---
 
-<a class="incognito" href="/">
-    <div id="header">
-        <h1 class="naked">{{ page.title }}</h1>
-    </div>
-</a>
+<div id="header">
+    <h1 class="naked"><a class="incognito" href="/">{{ page.title }}</a></h1>
+</div>
 <div id="content">
     <span class="description"><span class="highlight">Date:</span> {{ page.date | date: "%b %d, %Y" }}</span>
     <div id="post">
