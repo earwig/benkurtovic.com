@@ -33,7 +33,6 @@ pre {
 div.project {
     border: 1px solid #CCC;
     border-radius: 5px;
-    background-color: #F4F4F4;
 }
 
 div.project-head {
@@ -48,11 +47,27 @@ div.project-head {
     background: -moz-linear-gradient(top, #E3E3E3, #CACACA); /* Firefox 3.6+ */
     background: -ms-linear-gradient(top, #E3E3E3, #CACACA); /* IE 10+ (lol) */
     background: -o-linear-gradient(top, #E3E3E3, #CACACA); /* Opera 11.10+ */
-    background: linear-gradient(top, #E3E3E3, #CACACA); /* God-tier */    
+    background: linear-gradient(top, #E3E3E3, #CACACA); /* God-tier */ 
 }
 
 div.project-body {
     padding: 6px 12px 9px 12px;
+    border-radius: 0px 0px 5px 5px;
+
+    background: #F4F4F4; 
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#F9F9F9), to(#EFEFEF));
+    background: -webkit-linear-gradient(top, #F9F9F9, #EFEFEF);
+    background: -moz-linear-gradient(top, #F9F9F9, #EFEFEF);
+    background: -ms-linear-gradient(top, #F9F9F9, #EFEFEF);
+    background: -o-linear-gradient(top, #F9F9F9, #EFEFEF);
+    background: linear-gradient(top, #F9F9F9, #EFEFEF); */
+
+}
+
+div.divider {
+    border-bottom: 1px solid #AAA;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
 td.about-l {
@@ -137,11 +152,6 @@ td#left-box {
 td#right-box {
     padding-left: 25px;
     vertical-align: top;
-}
-
-hr {
-    margin-top: 12px;
-    margin-bottom: 12px;
 }
 
 td#about-tl { border-top-left-radius: 5px; border-top: 1px solid #AAA; }
