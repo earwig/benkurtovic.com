@@ -40,7 +40,15 @@ div.project-head {
     padding: 3px 12px 6px 12px;
     border-bottom: 1px solid #CCC;
     border-radius: 5px 5px 0px 0px;
-    background-color: #E0E0E0;
+
+    /* all I want is a simple background gradient without images! */
+    background: #E0E0E0; /* fallback (your browser is crap) */
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#E3E3E3), to(#CACACA)); /* Chrome, Safari 4+ */
+    background: -webkit-linear-gradient(top, #E3E3E3, #CACACA); /* Chrome 10+, Safari 5+ */
+    background: -moz-linear-gradient(top, #E3E3E3, #CACACA); /* Firefox 3.6+ */
+    background: -ms-linear-gradient(top, #E3E3E3, #CACACA); /* IE 10+ (lol) */
+    background: -o-linear-gradient(top, #E3E3E3, #CACACA); /* Opera 11.10+ */
+    background: linear-gradient(top, #E3E3E3, #CACACA); /* God-tier */    
 }
 
 div.project-body {
@@ -91,7 +99,15 @@ div#header {
     padding: 30px 0px 30px 0px;
     border: 1px solid #999;
     border-radius: 10px 10px 0px 0px;
-    background-color: #DED;
+
+    /* see div.project-head for details */
+    background: #DDEEDD;
+    background: -webkit-gradient(linear, left top, left bottom, from(#E4F1E4), to(#B1BEB1));
+    background: -webkit-linear-gradient(top, #E4F1E4, #B1BEB1);
+    background: -moz-linear-gradient(top, #E4F1E4, #B1BEB1);
+    background: -ms-linear-gradient(top, #E4F1E4, #B1BEB1);
+    background: -o-linear-gradient(top, #E4F1E4, #B1BEB1);
+    background: linear-gradient(top, #E4F1E4, #B1BEB1);
 }
 
 div#content {
