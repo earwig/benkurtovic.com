@@ -5,28 +5,29 @@ body {
     background-color: #E0E0E0;
 }
 
-.text-highlight {
+.color-highlight {
     color: #040;
+}
+
+.highlight { /* syntax highlighter */
+    background: #f2f2f2;
+    border: 1px solid #e8e8e8;
+    border-radius: 10px;
+    padding-left: 16px;
+    line-height: 1.35em;
+    font-size: 13px;
 }
 
 .description {
     font-size: 12px;
 }
 
-.topless {
-    margin-top: 0px;
-    padding-top: 0px;
-}
-
-.naked {
-    margin-top: 0px;
-    padding-top: 0px;
-    margin-bottom: 0px;
-    padding-bottom: 0px;
-}
-
 h1, h2 {
     text-align: center;
+}
+
+pre {
+    white-space: pre-wrap;
 }
 
 div.project {
@@ -47,12 +48,12 @@ div.project-body {
 }
 
 td.about-l {
-    padding: 3px 6px 3px 6px;
+    padding: 4px 12px 4px 12px;
     border-left: 1px solid #CCC;
 }
 
 td.about-r {
-    padding: 3px 6px 3px 6px;
+    padding: 4px 12px 4px 12px;
     border-right: 1px solid #CCC;
 }
 
@@ -65,17 +66,29 @@ td.dark-l { background-color: #DADADA; }
 td.light-r { background-color: #F7F7F7; }
 td.dark-r { background-color: #E5E5E5; }
 
+h1#header {
+    margin-top: 0px;
+    padding-top: 0px;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+}
+
+h2#posts {
+    margin-top: 0px;
+    padding-top: 0px;
+}
+
 div#container {
     width: 800px;
-    margin: 16px auto 16px auto;
+    margin: 20px auto 32px auto;
     border: 1px solid #999;
     border-radius: 10px;
     background-color: #FFF;
 }
 
 div#header {
-    margin: 12px 12px 20px 12px;
-    padding: 15px 0px 15px 0px;
+    margin: 16px 16px 20px 16px;
+    padding: 30px 0px 30px 0px;
     border: 1px solid #999;
     border-radius: 10px 10px 0px 0px;
     background-color: #DED;
@@ -88,8 +101,12 @@ div#content {
 div#footer {
     font-size: 11px;
     text-align: center;
-    padding: 6px 2px 6px 2px;
+    padding: 9px 4px 12px 4px;
     color: #222;
+}
+
+div#post-info {
+    margin-left: 24px;
 }
 
 div#post {

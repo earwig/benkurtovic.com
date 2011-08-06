@@ -3,7 +3,7 @@ layout: base
 ---
 
 <div id="header">
-    <h1 class="naked">Hi, I'm <span class="text-highlight">Earwig</span>!</h1>
+    <h1 id="header">Hi, I'm <span class="color-highlight">Earwig</span>!</h1>
 </div>
 <div id="content">
     <table>
@@ -51,7 +51,7 @@ layout: base
                 {{ content }}
             </td>
             <td id="right-box">
-                <h2 class="topless">Posts</h2>
+                <h2 id="posts">Posts</h2>
                 <ul>
                     {% for post in site.posts %}
                         <li class="post">{{ post.date | date: "%b %d, %Y" }}: <a class="invert" href="{{ post.url }}">{{ post.title }}</a><br /><span class="description">{{ post.description }}</span></li>

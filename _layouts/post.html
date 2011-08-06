@@ -3,10 +3,12 @@ layout: base
 ---
 
 <div id="header">
-    <h1 class="naked"><a class="incognito" href="/">{{ page.title }}</a></h1>
+    <h1 id="header"><a class="incognito" href="/">{{ page.title }}</a></h1>
 </div>
 <div id="content">
-    <span class="description"><span class="text-highlight">Date:</span> {{ page.date | date: "%b %d, %Y" }}</span>
+    <div id="post-info" class="description">
+        <span class="color-highlight">Date:</span> {{ page.date | date: "%b %d, %Y" }}
+    </div>
     <div id="post">
         {{ content }}
     </div>

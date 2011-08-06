@@ -1,10 +1,9 @@
 /* 
-This file has been shamelessly stolen from:
+This file has been shamelessly stolen from (with modifications):
     https://github.com/mojombo/tpw/blob/master/css/syntax.css
 ...which is released under the MIT license.
 */
 
-.highlight  { background: #ffffff; }
 .highlight .c { color: #999988; font-style: italic } /* Comment */
 .highlight .err { color: #a61717; background-color: #e3d2d2 } /* Error */
 .highlight .k { font-weight: bold } /* Keyword */
@@ -20,7 +19,7 @@ This file has been shamelessly stolen from:
 .highlight .gh { color: #999999 } /* Generic.Heading */
 .highlight .gi { color: #000000; background-color: #ddffdd } /* Generic.Inserted */
 .highlight .gi .x { color: #000000; background-color: #aaffaa } /* Generic.Inserted.Specific */
-.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .go { color: #666666 } /* Generic.Output */
 .highlight .gp { color: #555555 } /* Generic.Prompt */
 .highlight .gs { font-weight: bold } /* Generic.Strong */
 .highlight .gu { color: #aaaaaa } /* Generic.Subheading */
