@@ -4,10 +4,13 @@ title: EarwigBot Progress&#58; Wiki Toolset
 description: YAWTF (Yet Another Wiki Tools Framework, or Yet Another... WTF?)
 ---
 
+__Update Aug 08, 2011__: Some changes made thanks to updates in the new
+`feature/tests-framework` branch.
+
 So I've been spending the past week and a half working on EarwigBot's new
 wikitools framework thing (to avoid confusion with Mr.Z-man's
 `python-wikitools` package, I'm referring to it as "EarwigBot's Wiki Toolset"
-in the docs, even though it's `wiki.tools` internally). Basically, it's the
+in the docs, even though it's just `wiki` internally). Basically, it's the
 interface between EarwigBot and the MediaWiki API.
 
 As Josh put it, this is "the thing that actually makes it work".
@@ -17,8 +20,8 @@ an IRC command):
 
 {% highlight pycon %}
 
->>> from wiki import tools
->>> site = tools.get_site()
+>>> import wiki
+>>> site = wiki.get_site()
 >>> print site.name()
 enwiki
 >>> print site.project()
@@ -55,6 +58,8 @@ and pages as well, with intelligent namespace logic:
 >>> page = site.get_page("Wikipedia:Articles for creation")
 >>> print page.url()
 http://en.wikipedia.org/wiki/Wikipedia:Articles_for_creation
+>>> print page.creator()
+Uncle G
 >>> print page.namespace()
 4
 >>> print site.namespace_id_to_name(4)
@@ -117,7 +122,7 @@ CentralAuth, meaning I can do...
 
 {% highlight pycon %}
 
->>> es = tools.get_site("eswiki")
+>>> es = wiki.get_site("eswiki")
 >>> print es.get_user().name()
 EarwigBot
 

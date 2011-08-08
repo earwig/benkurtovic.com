@@ -47,7 +47,7 @@ div.project-head {
     background: -moz-linear-gradient(top, #E3E3E3, #CACACA); /* Firefox 3.6+ */
     background: -ms-linear-gradient(top, #E3E3E3, #CACACA); /* IE 10+ (lol) */
     background: -o-linear-gradient(top, #E3E3E3, #CACACA); /* Opera 11.10+ */
-    background: linear-gradient(top, #E3E3E3, #CACACA); /* God-tier */ 
+    background: linear-gradient(top, #E3E3E3, #CACACA); /* God-tier */
 }
 
 div.project-body {
@@ -61,7 +61,6 @@ div.project-body {
     background: -ms-linear-gradient(top, #F9F9F9, #EFEFEF);
     background: -o-linear-gradient(top, #F9F9F9, #EFEFEF);
     background: linear-gradient(top, #F9F9F9, #EFEFEF); */
-
 }
 
 div.divider {
