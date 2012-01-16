@@ -52,7 +52,14 @@ layout: base
                     <img id="avatar" src="https://secure.gravatar.com/avatar/1b21804852ac50fee9f8e03cfa0da786?s=140" title="Earwig" alt="Earwig" />
                 </div>
                 <p id="about-me-top">I'm Ben Kurtovic, a student, software developer, and <a href="http://en.wikipedia.org/">Wikipedian</a> who occasionally messes around with game production. I'm the guy behind <a href="http://en.wikipedia.org/wiki/User:EarwigBot">EarwigBot</a>. I love <a href="http://en.wikipedia.org/wiki/My_Little_Pony%3A_Friendship_Is_Magic">ponies</a>!</p>
-                <p>On this page, you can find my identities on a few other sites, check out the project's I'm working on, and read some of my incessant ramblings in blog form:</p>
+                <p>On this page, you can find my identities on a few other sites, check out the project's I'm working on, and read some of my incessant ramblings in blog form.</p>
+                <h2 class="index-header">Tweets</h2>
+                <ul id="tweets">
+                    <script type="text/javascript"
+                            src="https://twitter.com/statuses/user_timeline/the_earwig.json?count=3&amp;callback=show_tweets">
+                    </script>
+                    <li><a href="http://twitter.com/the_earwig">More...</a></li>
+                </ul>
                 <h2 class="index-header">Posts</h2>
                 <ul>
                     {% for post in site.posts %}

@@ -22,6 +22,10 @@ body {
     font-size: 12px;
 }
 
+.tweet {
+    color: #888;
+}
+
 .index-header {
     padding-top: 15px;
 }
