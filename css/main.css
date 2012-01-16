@@ -22,6 +22,10 @@ body {
     font-size: 12px;
 }
 
+.index-header {
+    padding-top: 15px;
+}
+
 h1, h2 {
     text-align: center;
 }
@@ -88,16 +92,15 @@ td.dark-l { background-color: #DADADA; }
 td.light-r { background-color: #F7F7F7; }
 td.dark-r { background-color: #E5E5E5; }
 
+p#about-me-top {
+    margin-top: 0px;
+}
+
 h1#head {
     margin-top: 0px;
     padding-top: 0px;
     margin-bottom: 0px;
     padding-bottom: 0px;
-}
-
-h2#posts {
-    margin-top: 0px;
-    padding-top: 0px;
 }
 
 div#container {
@@ -141,6 +144,26 @@ div#post-info {
 
 div#post {
     line-height: 1.5em;
+}
+
+div#avatar-box {
+    float: right;
+    position: relative;
+    left: 50px;
+    margin-left: -40px;
+    padding: 12px;
+    background-color: #FFF;
+    border: 1px solid #999;
+    border-radius: 5px;
+    
+    -webkit-transform:rotate(3deg);
+    -moz-transform:rotate(3deg);
+    -o-transform:rotate(3deg);
+    -ms-transform:rotate(3deg);
+}
+
+img#avatar {
+    border-radius: 5px;
 }
 
 td#left-box {
