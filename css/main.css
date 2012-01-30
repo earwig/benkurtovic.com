@@ -28,14 +28,16 @@ body {
 
 .index-header {
     padding-top: 15px;
-}
-
-h1, h2 {
     text-align: center;
 }
 
 pre {
     white-space: pre-wrap;
+}
+
+code {
+    background: #f2f2f2;
+    border: 1px solid #e8e8e8;
 }
 
 div.project {
@@ -105,6 +107,7 @@ h1#head {
     padding-top: 0px;
     margin-bottom: 0px;
     padding-bottom: 0px;
+    text-align: center;
 }
 
 div#container {
