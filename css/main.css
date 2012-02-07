@@ -110,8 +110,13 @@ h1#head {
     text-align: center;
 }
 
+div#everything {
+    max-width: 900px;
+    margin: auto;
+    padding: 0 40px 0 40px;
+}
+
 div#container {
-    width: 800px;
     margin: 20px auto 32px auto;
     border: 1px solid #999;
     border-radius: 10px;
@@ -120,7 +125,7 @@ div#container {
 
 div#header {
     margin: 16px 16px 20px 16px;
-    padding: 30px 0px 30px 0px;
+    padding: 35px 0px 35px 0px;
     border: 1px solid #999;
     border-radius: 10px 10px 0px 0px;
 
@@ -169,8 +174,19 @@ div#avatar-box {
     -ms-transform:rotate(3deg);
 }
 
+img#forkme {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border: 0;
+}
+
 img#avatar {
     border-radius: 5px;
+}
+
+table#about {
+    width: 100%;
 }
 
 td#left-box {

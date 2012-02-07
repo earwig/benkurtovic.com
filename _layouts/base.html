@@ -8,16 +8,18 @@
         <script src="/js/date_format.js" type="text/javascript"></script>
         <script src="/js/tweets.js" type="text/javascript"></script>
     </head>
-    <body>
+    <body onload="load_tweets();">
         <div id="forkme">
             <a href="http://github.com/earwig">
-                <img style="position: absolute; top: 0; right: 0; border: 0;" src="/images/forkme.png" alt="Fork me on GitHub" />
+                <img id="forkme" src="/images/forkme.png" title="Fork me on GitHub" alt="Fork me on GitHub" />
             </a>
         </div>
-        <div id="container">
-            {{ content }}
-            <div id="footer">
-                <p>Copyright &copy; 2011&ndash;2012 Ben Kurtovic &bull; <a href="http://github.com/earwig/earwig.github.com">View Source</a> &bull; <a href="http://validator.w3.org/check?uri=referer">Valid XHTML 1.0 Strict</a></p>
+        <div id="everything">
+            <div id="container">
+                {{ content }}
+                <div id="footer">
+                    <p>Copyright &copy; 2011&ndash;2012 Ben Kurtovic &bull; <a href="http://github.com/earwig/earwig.github.com">View Source</a> &bull; <a href="http://validator.w3.org/check?uri=referer">Valid XHTML 1.0 Strict</a></p>
+                </div>
             </div>
         </div>
     </body>
