@@ -2,7 +2,7 @@ body {
     font-family: helvetica, arial, clean, sans-serif;
     font-size: 14px;
     color: #000;
-    background-color: #E0E0E0;
+    background: #E0E0E0 url("/images/background.png") repeat top left;
 }
 
 .color-highlight {
