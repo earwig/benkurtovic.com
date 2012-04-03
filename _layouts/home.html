@@ -65,10 +65,22 @@ layout: base
                 <h2 class="index-header">Posts</h2>
                 <ul>
                     {% for post in site.posts %}
-                        <li class="post">{{ post.date | date: "%b %d, %Y" }}: <a class="invert" href="{{ post.url }}">{{ post.title }}</a><br /><span class="description">{{ post.description }}</span></li>
+                        <li class="post">{{ post.date | date: "%b %d, %Y" }}: <a class="invert" href="{{ post.url }}">{{ post.title }}</a><br /><span class="description">{{ post.description }} (<a href="{{ post.url }}#disqus_thread" data-disqus-identifier="{{ post.id }}"></a>)</span></li>
                     {% endfor %}
                 </ul>
             </td>
         </tr>
     </table>
 </div>
+<script type="text/javascript">
+    var disqus_shortname = 'earwig';
+    var disqus_title = '{{ page.title }}';
+    var disqus_url = 'http://earwig.github.com{{ page.url }}';
+    var disqus_developer = 1;
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(s);
+    }());
+</script>
