@@ -1,5 +1,5 @@
 function load_tweets() {
-    var element = document.getElementById("twitter");
+    var element = document.getElementById("tweets");
     if (element) {
         var callback = "like_a_boss";
         var username = "the_earwig";
@@ -20,14 +20,16 @@ function load_tweets() {
 }
 
 function show_tweets(tweets, element) {
+    var addedHTML = "";
     for (t in tweets) {
         var tweet = tweets[t];
         var t = '<li class="post">' + fmt_text(tweet["text"]) + "<br />";
         t += '<a href="http://twitter.com/' + tweet["user"]["screen_name"] + '/status/' + tweet["id_str"] + '">'
         t += '<span class="tweet description">' + fmt_date(tweet["created_at"]) + "</span>";
         t += "</a></li>";
-        element.innerHTML += t;
+        addedHTML += t;
     }
+    element.innerHTML = addedHTML + element.innerHTML;
 }
 
 function fmt_text(t) {
