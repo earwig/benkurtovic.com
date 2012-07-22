@@ -35,6 +35,7 @@ function show_tweets(tweets, element) {
 function fmt_text(t) {
     t = t.replace(/(http:\/\/.*?(\s|$))/ig, '<a href="$1">$1</a>$2');
     t = t.replace(/\@(.*?)(\s|$)/ig, '<a href="http://twitter.com/$1">@$1</a>$2');
+    t = t.replace(/\#(.*?)(\s|$)/ig, '<a href="http://twitter.com/search/%23$1">#$1</a>$2');
     return t;
 }
 
