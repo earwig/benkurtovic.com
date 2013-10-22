@@ -27,24 +27,20 @@ layout: base
                         <td class="about-r light-r"><a href="http://en.wikipedia.org/wiki/User:The_Earwig">[[User:The Earwig]]</a></td>
                     </tr>
                     <tr>
-                        <td class="about-l dark-l">Toolserver</td>
-                        <td class="about-r dark-r"><a href="http://toolserver.org/~earwig">~earwig</a></td>
+                        <td class="about-l dark-l">GitHub</td>
+                        <td class="about-r dark-r"><a href="http://github.com/earwig">earwig</a></td>
                     </tr>
                     <tr>
-                        <td class="about-l light-l">GitHub</td>
-                        <td class="about-r light-r"><a href="http://github.com/earwig">earwig</a></td>
+                        <td class="about-l light-l">BitBucket</td>
+                        <td class="about-r light-r"><a href="https://bitbucket.org/earwig">earwig</a></td>
                     </tr>
                     <tr>
-                        <td class="about-l dark-l">BitBucket</td>
-                        <td class="about-r dark-r"><a href="https://bitbucket.org/earwig">earwig</a></td>
+                        <td class="about-l dark-l">Twitter</td>
+                        <td class="about-r dark-r"><a href="http://twitter.com/the_earwig">@the_earwig</a></td>
                     </tr>
                     <tr>
-                        <td class="about-l light-l">Twitter</td>
-                        <td class="about-r light-r"><a href="http://twitter.com/the_earwig">@the_earwig</a></td>
-                    </tr>
-                    <tr>
-                        <td id="about-bl" class="about-l dark-l">Tumblr</td>
-                        <td id="about-br" class="about-r dark-r"><a href="http://theearwig.tumblr.com/">theearwig</a></td>
+                        <td id="about-bl" class="about-l light-l">Tumblr</td>
+                        <td id="about-br" class="about-r light-r"><a href="http://theearwig.tumblr.com/">theearwig</a></td>
                     </tr>
                 </table>
                 <h2 class="index-header">Projects</h2>
@@ -55,18 +51,19 @@ layout: base
                 <div id="avatar-box">
                     <img id="avatar" src="https://secure.gravatar.com/avatar/1b21804852ac50fee9f8e03cfa0da786?s=140" title="Earwig" alt="Earwig" />
                 </div>
-                <p id="about-me-top">I'm Ben Kurtovic, a student, software developer, and <a href="http://en.wikipedia.org/">Wikipedian</a> who occasionally messes around with game production. I'm the guy behind <a href="http://en.wikipedia.org/wiki/User:EarwigBot">EarwigBot</a>. I love <a href="http://en.wikipedia.org/wiki/My_Little_Pony%3A_Friendship_Is_Magic">ponies</a>!</p>
+                <p id="about-me-top">I'm Ben Kurtovic, a student, software developer, and <a href="http://en.wikipedia.org/">Wikipedian</a> who occasionally messes around with game production. I'm the guy behind <a href="https://github.com/earwig/mwparserfromhell">mwparserfromhell</a> and <a href="http://en.wikipedia.org/wiki/User:EarwigBot">EarwigBot</a>.</p>
                 <p>On this page, you can find my identities on a few other sites, check out the projects I'm working on, and read some of my incessant ramblings in blog form.</p>
-                <h2 class="index-header">Tweets</h2>
-                <ul id="tweets">
-                    <li><a href="http://twitter.com/the_earwig">More...</a></li>
-                </ul>
                 <h2 class="index-header">Posts</h2>
-                <ul>
+                <ul id="post-list">
                     {% for post in site.posts %}
                         <li class="post">{{ post.date | date: "%b %d, %Y" }}: <a class="invert" href="{{ post.url }}">{{ post.title }}</a><br /><span class="description">{{ post.description }} (<a href="{{ post.url }}#disqus_thread" data-disqus-identifier="{{ post.id }}"></a>)</span></li>
                     {% endfor %}
                 </ul>
+                <h2 class="index-header"><a class="incognito" href="https://twitter.com/the_earwig">Tweets</a></h2>
+                <div id="follow-button-box"><a href="https://twitter.com/the_earwig" class="twitter-follow-button" data-show-count="false" data-dnt="true">Follow @the_earwig</a>
+                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script></div>
+                <a class="twitter-timeline" data-dnt="true" href="https://twitter.com/the_earwig" data-widget-id="392426863047364608" data-chrome="noheader" data-tweet-limit="5">Tweets by @the_earwig</a>
+                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
             </td>
         </tr>
     </table>

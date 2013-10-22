@@ -22,10 +22,6 @@ body {
     font-size: 12px;
 }
 
-.tweet {
-    color: #888;
-}
-
 .index-header {
     padding-top: 15px;
     text-align: center;
@@ -64,7 +60,7 @@ div.project-body {
     padding: 6px 12px 9px 12px;
     border-radius: 0px 0px 5px 5px;
 
-    background: #F4F4F4; 
+    background: #F4F4F4;
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#F9F9F9), to(#EFEFEF));
     background: -webkit-linear-gradient(top, #F9F9F9, #EFEFEF);
     background: -moz-linear-gradient(top, #F9F9F9, #EFEFEF);
@@ -167,11 +163,19 @@ div#avatar-box {
     background-color: #FFF;
     border: 1px solid #999;
     border-radius: 5px;
-    
+
     -webkit-transform:rotate(3deg);
     -moz-transform:rotate(3deg);
     -o-transform:rotate(3deg);
     -ms-transform:rotate(3deg);
+}
+
+div#follow-button-box {
+    float: right;
+}
+
+ul#post-list {
+    padding-left: 1em;
 }
 
 img#forkme {
