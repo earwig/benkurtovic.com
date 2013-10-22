@@ -36,6 +36,6 @@ interface, and when that's done, the bot tasks themselves. Easily a summer of
 work, but when it's complete, EarwigBot should be mostly finished, and up to at
 least version 1.0!
 
-So... questions? Comments? H8 mail? [Lay it on me!](mailto:ben.kurtovic@verizon.net)
+So... questions? Comments? H8 mail? [Lay it on me!](mailto:ben.kurtovic@gmail.com)
 
 :&mdash;earwig
