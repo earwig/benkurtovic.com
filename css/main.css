@@ -9,7 +9,7 @@ body {
     color: #040;
 }
 
-.highlight { /* syntax highlighter */
+.highlight {  /* syntax highlighter */
     background: #f2f2f2;
     border: 1px solid #e8e8e8;
     border-radius: 10px;
@@ -34,6 +34,12 @@ pre {
 code {
     background: #f2f2f2;
     border: 1px solid #e8e8e8;
+    padding: 0 3px;
+}
+
+pre code {
+    border: 0;
+    padding: 0;
 }
 
 div.project {
@@ -151,7 +157,7 @@ div#post-info {
 }
 
 div#post {
-    line-height: 1.5em;
+    line-height: 1.75em;
 }
 
 div#avatar-box {
