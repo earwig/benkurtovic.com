@@ -366,7 +366,7 @@ argument, and obfuscate some variable names:
 {% endhighlight %}
 
 There's a new problem now: we still need a way to hide `0` and `1`. We can get
-these by examining the number of local variables within a arbitrary functions:
+these by examining the number of local variables within arbitrary functions:
 
 {% highlight pycon %}
 
