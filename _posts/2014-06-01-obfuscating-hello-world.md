@@ -5,10 +5,9 @@ description: Fun with functional programming in Python.
 ---
 
 A few months ago, I got first place in
-[this Code Golf contest](http://codegolf.stackexchange.com/q/22533) to create
-the weirdest obfuscated program that prints the string "Hello world!". I
-decided to write up an explanation of how the hell it works. So, here's the
-entry:
+[this Code Golf contest](//codegolf.stackexchange.com/q/22533) to create the
+weirdest obfuscated program that prints the string "Hello world!". I decided to
+write up an explanation of how the hell it works. So, here's the entry:
 
 {% highlight python %}
 
@@ -73,9 +72,9 @@ sys.stdout.write("Hello world!\n")
 {% endhighlight %}
 
 But let's use something lower-level:
-[`os.write()`](https://docs.python.org/2/library/os.html#os.write). We need
-`stdout`'s [file descriptor](https://en.wikipedia.org/wiki/File_descriptor),
-which is `1` (you can check with `print sys.stdout.fileno()`).
+[`os.write()`](//docs.python.org/2/library/os.html#os.write). We need
+`stdout`'s [file descriptor](//en.wikipedia.org/wiki/File_descriptor), which is
+`1` (you can check with `print sys.stdout.fileno()`).
 
 {% highlight python %}
 
@@ -85,7 +84,7 @@ os.write(1, "Hello world!\n")
 {% endhighlight %}
 
 We want a single expression, so we'll use
-[`__import__()`](https://docs.python.org/2/library/functions.html#__import__):
+[`__import__()`](//docs.python.org/2/library/functions.html#__import__):
 
 {% highlight python %}
 
@@ -180,9 +179,9 @@ convert = lambda num: chr(num % 256) + convert(num // 256) if num else ""
 {% endhighlight %}
 
 Now we use
-[anonymous recursion](https://en.wikipedia.org/wiki/Anonymous_recursion) to
-turn this into a single expression. This requires a
-[combinator](https://en.wikipedia.org/wiki/Combinatory_logic). Start with this:
+[anonymous recursion](//en.wikipedia.org/wiki/Anonymous_recursion) to turn this
+into a single expression. This requires a
+[combinator](//en.wikipedia.org/wiki/Combinatory_logic). Start with this:
 
 {% highlight pycon %}
 
@@ -238,7 +237,8 @@ some random function:
 {% endhighlight %}
 
 What we're _really_ doing here is looking at the
-[line number table](http://svn.python.org/projects/python/branches/pep-0384/Objects/lnotab_notes.txt) of the `code` object contained within the function. Since it's anonymous, there
+[line number table](http://svn.python.org/projects/python/branches/pep-0384/Objects/lnotab_notes.txt)
+of the `code` object contained within the function. Since it's anonymous, there
 are no line numbers, so the string is empty. Replace the `0` with `_` to make
 it more confusing (it doesn't matter, since the function's not being called),
 and stick it in. We'll also refactor out the `256` into an argument that gets
@@ -481,8 +481,8 @@ function. It's getting long, so I'll paste only the first half:
 
 Only two more things are left. We'll start with the easy one: `256`.
 <span>\\(256 = 2^8\\)</span>, so we can rewrite it as `1 << 8` (using a
-[left bit shift](http://stackoverflow.com/a/141873)), or `_ << ________` with
-our obfuscated variables.
+[left bit shift](//stackoverflow.com/a/141873)), or `_ << ________` with our
+obfuscated variables.
 
 We'll use the same idea with `802616035175250124568770929992`. A simple
 divide-and-conquer algorithm can break it up into sums of numbers which are
@@ -490,7 +490,7 @@ themselves sums of numbers that are shifted together, and so on. For example,
 if we had `112`, we could break it up into `96 + 16` and then
 `(3 << 5) + (2 << 3)`. I like using bit shifts because the `<<` reminds me of
 `std::cout << "foo"` in C++, or
-[`print` chevron](https://docs.python.org/2/reference/simple_stmts.html#the-print-statement)
+[`print` chevron](//docs.python.org/2/reference/simple_stmts.html#the-print-statement)
 (`print >>`) in Python, both of which are red herrings involving other ways of
 doing I/O.
 

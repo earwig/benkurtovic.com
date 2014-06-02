@@ -30,7 +30,7 @@ EarwigBot's wiki toolset from `copyvios.mako`, and the config file is written,
 so running the detector is trivial once it works. The only thing left here is
 to have the tool produce relatively eye-pleasing output, perhaps with a
 "details" section showing the Markov chains formed from the two sources and
-comparing them visually. Not necessary at all, but a nice touch. 
+comparing them visually. Not necessary at all, but a nice touch.
 
 Unfortunately, there's still a bit more work to do on EarwigBot before he's
 ready for his first release (0.1!). Aside from the copyvio stuff above, which
@@ -48,10 +48,10 @@ Now that that's covered, let's look at something (mostly unrelated) I finished
 a couple days ago: dynamic backgrounds for
 [my new toolserver site](http://toolserver.org/~earwig/rewrite)! You can see it
 in action a bit better on [this page](http://toolserver.org/~earwig/earwigbot).
-The background is the the [Wikimedia Commons](http://commons.wikimedia.org/)
-[Picture of the Day](http://commons.wikimedia.org/wiki/Commons:Picture_of_the_day),
+The background is the the [Wikimedia Commons](//commons.wikimedia.org/)
+[Picture of the Day](//commons.wikimedia.org/wiki/Commons:Picture_of_the_day),
 loaded and displayed with JavaScript.
-[Here's the code for it](https://github.com/earwig/toolserver/blob/master/static/js/potd.js),
+[Here's the code for it](//github.com/earwig/toolserver/blob/master/static/js/potd.js),
 a good deal more code than I had expected to write.
 
 Here's what we have to do:
