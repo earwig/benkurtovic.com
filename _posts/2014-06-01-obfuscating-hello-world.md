@@ -533,9 +533,9 @@ convert(802616035175250124568770929992)
 The basic idea here is that we test various combinations of numbers in a
 certain range until we come up with two numbers, `base` and `shift`,
 such that `base << shift` is as closest to `num` as possible (i.e. we minimize
-their absolute difference, `diff`. We then use our divide-and conquer-algorithm
-to break up `best_base` and `best_shift`, and then repeat the procedure on
-`diff` until it reaches zero, summing the terms along the way.
+their absolute difference, `diff`). We then use our divide-and-conquer
+algorithm to break up `best_base` and `best_shift`, and then repeat the
+procedure on `diff` until it reaches zero, summing the terms along the way.
 
 The argument to `range()`, `span`, represents the width of the search space.
 This can't be too large, or we'll end getting `num` as our `base` and `0` as
