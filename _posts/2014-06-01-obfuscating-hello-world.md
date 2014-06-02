@@ -7,7 +7,8 @@ description: Fun with functional programming in Python.
 A few months ago, I got first place in
 [this Code Golf contest](//codegolf.stackexchange.com/q/22533) to create the
 weirdest obfuscated program that prints the string "Hello world!". I decided to
-write up an explanation of how the hell it works. So, here's the entry:
+write up an explanation of how the hell it works. So, here's the entry, in
+Python 2.7:
 
 {% highlight python %}
 
