@@ -498,7 +498,7 @@ doing I/O.
 The number can be decomposed in a variety of ways; no one method is correct
 (after all, we could just break it up into `(1 << 0) + (1 << 0) + ...`, but
 that's not interesting). We should have some substantial amount of nesting, but
-still use most of ourt numerical variables. Obviously, doing this by hand isn't
+still use most of our numerical variables. Obviously, doing this by hand isn't
 fun, so we'll come up with an algorithm. In pseudocode:
 
 {% highlight text %}
@@ -547,7 +547,8 @@ Through trial and error, I found this equation to work well:
 
 <div>$$\mathit{span} = \lceil\log_{1.5} \lvert{\mathit{num}}\lvert\rceil + \lfloor2^{4-\mathit{depth}}\rfloor$$</div>
 
-Translating the pseudocode into Python and making some tweaks, we get this:
+Translating the pseudocode into Python and making some tweaks (support for the
+`depth` argument, and some caveats involving negative numbers), we get this:
 
 {% highlight python %}
 
