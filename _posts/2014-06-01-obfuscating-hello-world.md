@@ -111,16 +111,16 @@ three strings and the int.
 of the names of various built-in classes. There are many different ways to do
 this, but I chose the following:
 
-- `"o"` from the second letter of `bool` (`True.__class__.__name__[1]`);
-- `"s"` from the third letter of `list` (`[].__class__.__name__[2]`);
+- `"o"` from the second letter of `bool`: `True.__class__.__name__[1]`
+- `"s"` from the third letter of `list`: `[].__class__.__name__[2]`
 - `"wr"` from the first two letters of `wrapper_descriptor`, an implementation
   detail in CPython found as the type of some builtin classes' methods (more on
   that
-  [here](http://utcc.utoronto.ca/~cks/space/blog/python/SlotWrapperObjects))
-  (`().__class__.__eq__.__class__.__name__[:2]`);
+  [here](http://utcc.utoronto.ca/~cks/space/blog/python/SlotWrapperObjects)):
+  `().__class__.__eq__.__class__.__name__[:2]`
 - `"ite"` from the sixth through eighth letters of `tupleiterator`, the type of
-  object returned by calling `iter()` on a tuple
-  (`().__iter__().__class__.__name__[5:8]`).
+  object returned by calling `iter()` on a tuple:
+  `().__iter__().__class__.__name__[5:8]`
 
 We're starting to make some progress!
 
@@ -141,9 +141,10 @@ following series:
 
 <div>$$\sum_{n=0}^{L-1} c_n(256^n)$$</div>
 
-where <span>\(L\)</span> is the length of the string and <span>\(c_n\)</span>
-is the ASCII code of the <span>\(n\)</span><sup>th</sup> character in the
-string. To create the number:
+where <span>\\(L\\)</span> is the length of the string and
+<span>\\(c_n\\)</span> is the ASCII code of the
+<span>\\(n\\)</span><sup>th</sup> character in the string. To create the
+number:
 
 {% highlight pycon %}
 
@@ -479,7 +480,7 @@ function. It's getting long, so I'll paste only the first half:
 {% endhighlight %}
 
 Only two more things are left. We'll start with the easy one: `256`.
-<span>\(256 = 2^8\)</span>, so we can rewrite it as `1 << 8` (using a
+<span>\\(256 = 2^8\\)</span>, so we can rewrite it as `1 << 8` (using a
 [left bit shift](http://stackoverflow.com/a/141873)), or `_ << ________` with
 our obfuscated variables.
 
