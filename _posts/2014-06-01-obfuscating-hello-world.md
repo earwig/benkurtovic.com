@@ -10,7 +10,7 @@ weirdest obfuscated program that prints the string "Hello world!". I decided to
 write up an explanation of how the hell it works. So, here's the entry, in
 Python 2.7:
 
-{% highlight python %}
+{% highlight python linenos=table %}
 
 (lambda _, __, ___, ____, _____, ______, _______, ________:
     getattr(
@@ -124,7 +124,7 @@ this, but I chose the following:
 
 We're starting to make some progress!
 
-{% highlight python %}
+{% highlight python linenos=table %}
 
 getattr(
     __import__(True.__class__.__name__[1] + [].__class__.__name__[2]),
@@ -208,7 +208,7 @@ function:
 Now we can stick this into our code from before, replacing some variable names
 along the way (`f` &rarr; `_`, `n` &rarr; `__`):
 
-{% highlight python %}
+{% highlight python linenos=table %}
 
 getattr(
     __import__(True.__class__.__name__[1] + [].__class__.__name__[2]),
@@ -246,7 +246,7 @@ and stick it in. We'll also refactor out the `256` into an argument that gets
 passed to our obfuscated `convert()` along with the number. This requires
 adding an argument to the combinator:
 
-{% highlight python %}
+{% highlight python linenos=table %}
 
 getattr(
     __import__(True.__class__.__name__[1] + [].__class__.__name__[2]),
@@ -273,7 +273,7 @@ to recreate them each time they're used. If we can implement, say,
 a function that takes variables containing the numbers from 1 to 8, and replace
 occurrences of integer literals in the body with these variables:
 
-{% highlight python %}
+{% highlight python linenos=table %}
 
 (lambda n1, n2, n3, n4, n5, n6, n7, n8:
     getattr(
@@ -301,7 +301,7 @@ We can get the number of arguments a function takes via its `code` object:
 
 Build a tuple of functions with argcounts between 1 and 8:
 
-{% highlight python %}
+{% highlight python linenos=table %}
 
 funcs = (
     lambda _: _,
@@ -353,7 +353,7 @@ Then, into anonymous-recursive form:
 For fun, we'll factor out argcount operation into an additional function
 argument, and obfuscate some variable names:
 
-{% highlight python %}
+{% highlight python linenos=table %}
 
 (lambda _, __, ___: _(_, __, ___))(
     (lambda _, __, ___:
@@ -397,7 +397,7 @@ This happens regardless of whether `_` is actually defined in the global scope.
 
 Putting this into practice:
 
-{% highlight python %}
+{% highlight python linenos=table %}
 
 (lambda _, __, ___: _(_, __, ___))(
     (lambda _, __, ___:
@@ -413,7 +413,7 @@ Putting this into practice:
 Now we can substitute the value of `funcs` in, and then using `*` to pass the
 resulting list of integers as eight separate variables, we get this:
 
-{% highlight python %}
+{% highlight python linenos=table %}
 
 (lambda n1, n2, n3, n4, n5, n6, n7, n8:
     getattr(
@@ -460,7 +460,7 @@ right ones will be used. This is also one of the reasons why we refactored
 `256` out to where `_` refers to `1` instead of our obfuscated `convert()`
 function. It's getting long, so I'll paste only the first half:
 
-{% highlight python %}
+{% highlight python linenos=table %}
 
 (lambda _, __, ___, ____, _____, ______, _______, ________:
     getattr(
@@ -501,7 +501,7 @@ that's not interesting). We should have some substantial amount of nesting, but
 still use most of our numerical variables. Obviously, doing this by hand isn't
 fun, so we'll come up with an algorithm. In pseudocode:
 
-{% highlight text %}
+{% highlight text linenos=table %}
 
 func encode(num):
     if num <= 8:
@@ -550,7 +550,7 @@ Through trial and error, I found this equation to work well:
 Translating the pseudocode into Python and making some tweaks (support for the
 `depth` argument, and some caveats involving negative numbers), we get this:
 
-{% highlight python %}
+{% highlight python linenos=table %}
 
 from math import ceil, log
 
@@ -601,7 +601,7 @@ decomposition:
 Stick this in as a replacement for `802616035175250124568770929992`, and put
 all the parts together:
 
-{% highlight python %}
+{% highlight python linenos=table %}
 
 (lambda _, __, ___, ____, _____, ______, _______, ________:
     getattr(

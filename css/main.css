@@ -1,25 +1,44 @@
 body {
+    max-width: 1000px;
+    margin: auto;
+    padding: 0 40px 0 40px;
     font-family: helvetica, arial, clean, sans-serif;
-    font-size: 14px;
+    font-size: 16px;
     color: #000;
     background: #E0E0E0 url("/images/background.png") repeat top left;
+}
+
+p {
+    line-height: 1.25em;
 }
 
 .color-highlight {
     color: #040;
 }
 
-.highlight {  /* syntax highlighter */
+.highlight, .highlighttable {
     background: #f2f2f2;
     border: 1px solid #e8e8e8;
     border-radius: 10px;
     padding-left: 16px;
     line-height: 1.35em;
-    font-size: 13px;
+    font-size: 14px;
+}
+
+.highlighttable {
+    width: 100%;
+}
+
+.highlighttable .highlight {
+    border: 0;
+}
+
+.linenos {
+    color: #888;
 }
 
 .description {
-    font-size: 12px;
+    font-size: 14px;
 }
 
 .index-header {
@@ -43,13 +62,13 @@ pre code {
 }
 
 div.project {
-    border: 1px solid #CCC;
+    border: 1px solid #DDD;
     border-radius: 5px;
 }
 
 div.project-head {
-    padding: 3px 12px 6px 12px;
-    border-bottom: 1px solid #CCC;
+    padding: 6px 15px 6px 15px;
+    border-bottom: 1px solid #DDD;
     border-radius: 5px 5px 0px 0px;
 
     /* all I want is a simple background gradient without images! */
@@ -63,7 +82,7 @@ div.project-head {
 }
 
 div.project-body {
-    padding: 6px 12px 9px 12px;
+    padding: 6px 15px 9px 15px;
     border-radius: 0px 0px 5px 5px;
 
     background: #F4F4F4;
@@ -76,7 +95,7 @@ div.project-body {
 }
 
 div.divider {
-    border-bottom: 1px solid #AAA;
+    border-bottom: 1px solid #CCC;
     margin-top: 15px;
     margin-bottom: 15px;
 }
@@ -112,21 +131,15 @@ h1#head {
     text-align: center;
 }
 
-div#everything {
-    max-width: 800px;
-    margin: auto;
-    padding: 0 40px 0 40px;
-}
-
 div#container {
-    margin: 20px auto 32px auto;
+    margin: 30px auto 30px auto;
     border: 1px solid #999;
     border-radius: 10px;
     background-color: #FFF;
 }
 
 div#header {
-    margin: 16px 16px 20px 16px;
+    margin: 30px;
     padding: 35px 0px 35px 0px;
     border: 1px solid #999;
     border-radius: 10px 10px 0px 0px;
@@ -142,11 +155,11 @@ div#header {
 }
 
 div#content {
-    padding: 2px 15px 2px 15px;
+    padding: 0 30px;
 }
 
 div#footer {
-    font-size: 11px;
+    font-size: 14px;
     text-align: center;
     padding: 9px 4px 12px 4px;
     color: #222;
@@ -156,7 +169,7 @@ div#post-info {
     margin-left: 24px;
 }
 
-div#post {
+div#post p {
     line-height: 1.75em;
 }
 
@@ -182,13 +195,6 @@ div#follow-button-box {
 
 ul#post-list {
     padding-left: 1em;
-}
-
-img#forkme {
-    position: absolute;
-    top: 0;
-    right: 0;
-    border: 0;
 }
 
 img#avatar {
