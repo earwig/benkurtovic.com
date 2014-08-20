@@ -15,8 +15,8 @@ available on [GitHub](//github.com/earwig/copyvios).
 One of the most important aspects of the detector is not fetching and parsing
 potential sources, but figuring out the likelihood that a given article is a
 violation of a given source. We call this number, a value between 0 and 1, the
-"confidence" of a violation. Values between 0 and 0.5 indicate no violation
-(green background in results page), between 0.5 and 0.75 a "possible" violation
+"confidence" of a violation. Values between 0 and 0.4 indicate no violation
+(green background in results page), between 0.4 and 0.75 a "possible" violation
 (yellow background), and between 0.75 and 1 a "suspected" violation (red
 background).
 
