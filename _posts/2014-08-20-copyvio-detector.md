@@ -48,7 +48,7 @@ reference points were <span>\\(\\{(0, 0), (100, 0.5), (250, 0.75), (500, 0.9),
 \frac{10.5\Delta-750}{10\Delta} & 250\lt \Delta\leq 500\; \\[0.5em]
 \frac{\Delta-50}{\Delta} & \Delta\gt500 \end{cases}$$</div>
 
-A graph can be viewed [here](/static/Delta Confidence Function.pdf), with the
+A graph can be viewed [here](/static/delta_confidence_function.pdf), with the
 background colored red, yellow, and green when a violation is considered
 suspected, possible, or not present, respectively.
 
