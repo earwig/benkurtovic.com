@@ -25,4 +25,4 @@ actually edit Wikipedia!
 
 Yay!
 
-:&mdash;earwig
+: &mdash;earwig

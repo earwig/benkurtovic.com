@@ -38,4 +38,4 @@ least version 1.0!
 
 So... questions? Comments? H8 mail? [Lay it on me!](mailto:ben.kurtovic@gmail.com)
 
-:&mdash;earwig
+: &mdash;earwig

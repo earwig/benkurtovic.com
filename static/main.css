@@ -169,7 +169,7 @@ div#post-info {
     margin-left: 24px;
 }
 
-div#post p {
+div#post p, div#post ol, div#post li {
     line-height: 1.75em;
 }
 

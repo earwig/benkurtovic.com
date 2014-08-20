@@ -87,4 +87,4 @@ worth it in the end.
 
 That's all for now!
 
-:&mdash;earwig
+: &mdash;earwig
