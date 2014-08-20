@@ -5,7 +5,7 @@ body {
     font-family: helvetica, arial, clean, sans-serif;
     font-size: 16px;
     color: #000;
-    background: #E0E0E0 url("/images/background.png") repeat top left;
+    background: #E0E0E0 url("/static/background.png") repeat top left;
 }
 
 p {
