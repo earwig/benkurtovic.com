@@ -15,10 +15,10 @@ available on [GitHub](//github.com/earwig/copyvios).
 One of the most important aspects of the detector is not fetching and parsing
 potential sources, but figuring out the likelihood that a given article is a
 violation of a given source. We call this number, a value between 0 and 1, the
-"confidence" of a violation. Values between 0 and 0.5 are considered to
-indicate no violation (green background in results page), between 0.5 and 0.75
-a "possible" violation (yellow background), and between 0.75 and 1 a
-"suspected" violation (red background).
+"confidence" of a violation. Values between 0 and 0.5 indicate no violation
+(green background in results page), between 0.5 and 0.75 a "possible" violation
+(yellow background), and between 0.75 and 1 a "suspected" violation (red
+background).
 
 To calculate the confidence of a violation, the copyvio detector uses the
 maximum value of two functions, one of which accounts for the size of the delta
@@ -28,19 +28,29 @@ chain (<span>\\(\Delta\\)</span>) in relation to the article chain
 chains are small, but not when <span>\\(A\\)</span> is significantly larger
 than <span>\\(\Delta\\)</span>.
 
-The article–delta confidence function is simply
-<span>\\(\frac{\Delta}{A}\\)</span>. Therefore, we have complete confidence of
-a violation (<span>\\(C(A, \Delta)=1\\)</span>) when the article and suspected
-source share all of their trigrams, half confidence
-(<span>\\(C(A, \Delta)=0.5\\)</span>) when the source shares half of the
-article's trigrams, and so on.
+The article–delta confidence function, <span>\\(C_{A\Delta}\\)</span>, is
+piecewise-defined such that confidence increases at an exponential rate as
+<span>\\(\frac{\Delta}{A}\\)</span> increases, until the value of
+<span>\\(C_{A\Delta}\\)</span> reaches the "suspected" violation threshold, at
+which point confidence increases at a decreasing rate, with
+<span>\\(\lim_{\frac{\Delta}{A} \to 1}C\_{A\Delta}(A, \Delta)=1\\)</span>
+holding true. The exact coefficients used are shown below:
 
-The delta confidence function, <span>\\(C_{\Delta}\\)</span>, is more
-complicated because it must determine a confidence value without having
-anything to compare <span>\\(\Delta\\)</span> to. A number of confidence values
-were derived experimentally, and the function was extrapolated from there such
-that <span>\\(\lim_{Δ \to +\infty}C\_{\Delta}(\Delta) = 1\\)</span>. The
-reference points were <span>\\(\\{(0, 0), (100, 0.5), (250, 0.75), (500, 0.9),
+<div>$$C_{A\Delta}(A, \Delta)=\begin{cases} \ln\frac{1}{1-\frac{\Delta}{A}} &
+\frac{\Delta}{A} \le 0.52763 \\[0.5em]
+-0.8939(\frac{\Delta}{A})^2+1.8948\frac{\Delta}{A}-0.0009 &
+\frac{\Delta}{A} \gt 0.52763 \end{cases}$$</div>
+
+A graph can be viewed [here](/static/article-delta_confidence_function.pdf),
+with the x-axis indicating <span>\\(\frac{\Delta}{A}\\)</span> and the y-axis
+indicating confidence. The background is colored red, yellow, and green when a
+violation is considered suspected, possible, or not present, respectively.
+
+The delta confidence function, <span>\\(C_{\Delta}\\)</span>, is also
+piecewise-defined. A number of confidence values were derived experimentally,
+and the function was extrapolated from there such that
+<span>\\(\lim_{Δ \to +\infty}C\_{\Delta}(\Delta)=1\\)</span>. The reference
+points were <span>\\(\\{(0, 0), (100, 0.5), (250, 0.75), (500, 0.9),
 (1000, 0.95)\\}\\)</span>. The function is defined as follows:
 
 <div>$$C_{\Delta}(\Delta)=\begin{cases} \frac{\Delta}{\Delta+100} & \Delta\leq
@@ -49,13 +59,13 @@ reference points were <span>\\(\\{(0, 0), (100, 0.5), (250, 0.75), (500, 0.9),
 \frac{\Delta-50}{\Delta} & \Delta\gt500 \end{cases}$$</div>
 
 A graph can be viewed [here](/static/delta_confidence_function.pdf), with the
-background colored red, yellow, and green when a violation is considered
-suspected, possible, or not present, respectively.
+x-axis indicating <span>\\(\Delta\\)</span>. The background coloring is the
+same as before.
 
 Now that we have these two definitions, we can define the primary confidence
 function, <span>\\(C\\)</span>, as follows:
 
-<div>$$C(A, \Delta) = \max(\tfrac{\Delta}{A}, C_{\Delta}(\Delta))$$</div>
+<div>$$C(A, \Delta) = \max(C_{A\Delta}(A, \Delta), C_{\Delta}(\Delta))$$</div>
 
 By feeding <span>\\(A\\)</span> and <span>\\(\Delta\\)</span> into
 <span>\\(C\\)</span>, we get our final confidence value.
