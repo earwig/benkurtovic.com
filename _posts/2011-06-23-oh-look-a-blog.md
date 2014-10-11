@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Oh Look, A Blog!
-description: Just kinda playing with the idea of my own site right now.
+description: Just kinda playing with the idea of my own site right now
 ---
 
 Hello there.

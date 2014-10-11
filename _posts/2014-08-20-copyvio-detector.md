@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Copyvio Detector
-description: A technical writeup of some recent developments.
+description: A technical writeup of some recent developments
 ---
 
 This is an technical writeup of some recent developments involving the

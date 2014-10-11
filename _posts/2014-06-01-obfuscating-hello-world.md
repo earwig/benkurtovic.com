@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Obfuscating "Hello world!"
-description: Fun with functional programming in Python.
+description: Fun with functional programming in Python
 ---
 
 A few months ago, I got first place in

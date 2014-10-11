@@ -1,7 +1,7 @@
 ---
 layout: post
 title: EarwigBot and Toolserver Updates
-description: More progress on EarwigBot and the Toolserver site rewrite, including dynamic backgrounds.
+description: More progress on EarwigBot and the Toolserver site rewrite, including dynamic backgrounds
 ---
 
 Haven't really said much in a while, so I felt it appropriate to make a new

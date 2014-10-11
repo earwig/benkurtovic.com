@@ -1,7 +1,7 @@
 ---
 layout: post
 title: EarwigBot Progress&#58; Page Editing
-description: Exactly what it says on the tin.
+description: Exactly what it says on the tin
 ---
 
 Because of [this](http://git.io/Nw-rLQ), doing this:
