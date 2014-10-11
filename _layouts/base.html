@@ -2,17 +2,27 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>{{ page.title }} - Ben Kurtovic</title>
-        <link rel="stylesheet" href="/static/main.css" type="text/css" />
-        <link rel="stylesheet" href="/static/syntax.css" type="text/css" /> <!-- shamelessly stolen from https://github.com/mojombo/tpw/blob/master/css/syntax.css -->
-        <script src="/static/date_format.js" type="text/javascript"></script>
-        <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        {% if page.title == "Home" %}
+            <title>Ben Kurtovic</title>
+        {% else %}
+            <title>{{ page.title }} - Ben Kurtovic</title>
+        {% endif %}
+        <link rel="stylesheet" href="/static/main.css" />
+        <link rel="stylesheet" href="/static/syntax.css" /> <!-- shamelessly stolen from https://github.com/mojombo/tpw/blob/master/css/syntax.css -->
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+        <script src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     </head>
     <body>
+        <div id="banner" class="banner-{% if page.title == "Home" %}large{% else %}small{% endif %}">
+            <a href="/">
+                <img src="/static/avatar.png" />
+                <h1>Ben Kurtovic</h1>
+            </a>
+        </div>
         <div id="container">
             {{ content }}
             <div id="footer">
-                <p>Copyright &copy; 2011&ndash;2014 Ben Kurtovic &bull; <a href="//github.com/earwig/earwig.github.io">View Source</a> &bull; <a href="http://validator.w3.org/check?uri=referer">Valid HTML5</a></p>
+                <p>Copyright &copy; 2011&ndash;{{ site.time | date: "%Y" }} Ben Kurtovic &bull; <a href="//github.com/earwig/earwig.github.io">View Source</a> &bull; <a href="http://validator.w3.org/check?uri=referer">Valid HTML5</a></p>
             </div>
         </div>
     </body>

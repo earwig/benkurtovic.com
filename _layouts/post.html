@@ -2,12 +2,10 @@
 layout: base
 ---
 
-<div id="header">
-    <h1 id="head"><a class="incognito" href="/">{{ page.title }}</a></h1>
-</div>
+<h1>{{ page.title }}</h1>
 <div id="content">
-    <div id="post-info" class="description">
-        <span class="color-highlight">Date:</span> {{ page.date | date: "%a, %b %d, %Y" }}
+    <div id="post-info">
+        <span><i class="fa fa-clock-o"></i> Date:</span> {{ page.date | date: "%B %-d, %Y" }}
     </div>
     <div id="post">
         {{ content }}

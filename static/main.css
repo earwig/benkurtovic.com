@@ -1,49 +1,101 @@
 body {
-    max-width: 1000px;
-    margin: auto;
-    padding: 0 40px 0 40px;
-    font-family: helvetica, arial, clean, sans-serif;
+    margin: 0;
+    background-color: white;
+    color: black;
+    font-family: sans-serif;                                                        /* TODO */
     font-size: 16px;
-    color: #000;
-    background: #E0E0E0 url("/static/background.png") repeat top left;
 }
 
-p {
+a:link { color: #3d7751; text-decoration: none; }
+a:visited { color: #3d7751; text-decoration: none; }
+a:hover { color: #041; text-decoration: underline; }
+a:active { color: #403; text-decoration: underline; }
+
+a.underlined:link, a.underlined:visited { text-decoration: underline; }
+a.underlined:hover, a.underlined:active { text-decoration: none; }
+
+#banner {
+    background-color: black;
+    text-align: center;
+}
+
+#banner a {
+    color: white;
+    text-decoration: none;
+}
+
+#banner img {
+    display: inline;
+    padding: 2px 0.5em 0 0;
+    vertical-align: top;
+}
+
+#banner h1 {
+    display: inline;
+    font-family: sans-serif;                                                        /* TODO */
+    text-align: center;
+}
+
+.banner-large {
+    height: 94px;
+    line-height: 94px;
+    border-top: 6px solid #3d7751;
+}
+
+.banner-large img {
+    height: 92px;
+}
+
+.banner-large h1 {
+    font-size: 2.5em;
+}
+
+.banner-small {
+    height: 66px;
+    line-height: 66px;
+    border-top: 4px solid #3d7751;
+}
+
+.banner-small img {
+    height: 64px;
+}
+
+.banner-small h1 {
+    font-size: 2em;
+}
+
+#container {
+    margin: 1.5em auto 0;
+    max-width: 1000px;
+    padding: 0 40px 0 40px;
+}
+
+#container p {
     line-height: 1.25em;
 }
 
-.color-highlight {
-    color: #040;
+#content p, #content ol, #content li {
+    line-height: 1.75em;
 }
 
-.highlight, .highlighttable {
-    background: #f2f2f2;
-    border: 1px solid #e8e8e8;
-    border-radius: 10px;
-    padding-left: 16px;
-    line-height: 1.35em;
+.project {
+    margin-bottom: 1.25em;
+}
+
+.project div:nth-child(2) {
     font-size: 14px;
 }
 
-.highlighttable {
-    width: 100%;
+#post-list li {
+    margin-bottom: 1.25em;
 }
 
-.highlighttable .highlight {
-    border: 0;
-}
-
-.linenos {
-    color: #888;
-}
-
-.description {
+.subtitle {
     font-size: 14px;
 }
 
-.index-header {
-    padding-top: 15px;
-    text-align: center;
+#post-info span {
+    color: #777;
 }
 
 pre {
@@ -61,176 +113,28 @@ pre code {
     padding: 0;
 }
 
-div.project {
-    border: 1px solid #DDD;
-    border-radius: 5px;
-}
-
-div.project-head {
-    padding: 6px 15px 6px 15px;
-    border-bottom: 1px solid #DDD;
-    border-radius: 5px 5px 0px 0px;
-
-    /* all I want is a simple background gradient without images! */
-    background: #E0E0E0; /* fallback (your browser is crap) */
-    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#E3E3E3), to(#CACACA)); /* Chrome, Safari 4+ */
-    background: -webkit-linear-gradient(top, #E3E3E3, #CACACA); /* Chrome 10+, Safari 5+ */
-    background: -moz-linear-gradient(top, #E3E3E3, #CACACA); /* Firefox 3.6+ */
-    background: -ms-linear-gradient(top, #E3E3E3, #CACACA); /* IE 10+ (lol) */
-    background: -o-linear-gradient(top, #E3E3E3, #CACACA); /* Opera 11.10+ */
-    background: linear-gradient(top, #E3E3E3, #CACACA); /* God-tier */
-}
-
-div.project-body {
-    padding: 6px 15px 9px 15px;
-    border-radius: 0px 0px 5px 5px;
-
-    background: #F4F4F4;
-    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#F9F9F9), to(#EFEFEF));
-    background: -webkit-linear-gradient(top, #F9F9F9, #EFEFEF);
-    background: -moz-linear-gradient(top, #F9F9F9, #EFEFEF);
-    background: -ms-linear-gradient(top, #F9F9F9, #EFEFEF);
-    background: -o-linear-gradient(top, #F9F9F9, #EFEFEF);
-    background: linear-gradient(top, #F9F9F9, #EFEFEF); */
-}
-
-div.divider {
-    border-bottom: 1px solid #CCC;
-    margin-top: 15px;
-    margin-bottom: 15px;
-}
-
-td.about-l {
-    padding: 4px 12px 4px 12px;
-    border-left: 1px solid #CCC;
-}
-
-td.about-r {
-    padding: 4px 12px 4px 12px;
-    border-right: 1px solid #CCC;
-}
-
-li.post {
-    margin-bottom: 20px;
-}
-
-td.light-l { background-color: #ECECEC; }
-td.dark-l { background-color: #DADADA; }
-td.light-r { background-color: #F7F7F7; }
-td.dark-r { background-color: #E5E5E5; }
-
-p#about-me-top {
-    margin-top: 0px;
-}
-
-h1#head {
-    margin-top: 0px;
-    padding-top: 0px;
-    margin-bottom: 0px;
-    padding-bottom: 0px;
-    text-align: center;
-}
-
-div#container {
-    margin: 30px auto 30px auto;
-    border: 1px solid #999;
-    border-radius: 10px;
-    background-color: #FFF;
-}
-
-div#header {
-    margin: 30px;
-    padding: 35px 0px 35px 0px;
-    border: 1px solid #999;
-    border-radius: 10px 10px 0px 0px;
-
-    /* see div.project-head for details */
-    background: #DDEEDD;
-    background: -webkit-gradient(linear, left top, left bottom, from(#E4F1E4), to(#B1BEB1));
-    background: -webkit-linear-gradient(top, #E4F1E4, #B1BEB1);
-    background: -moz-linear-gradient(top, #E4F1E4, #B1BEB1);
-    background: -ms-linear-gradient(top, #E4F1E4, #B1BEB1);
-    background: -o-linear-gradient(top, #E4F1E4, #B1BEB1);
-    background: linear-gradient(top, #E4F1E4, #B1BEB1);
-}
-
-div#content {
-    padding: 0 30px;
-}
-
-div#footer {
+.highlight, .highlighttable {
+    background: #f2f2f2;
+    border: 1px solid #e8e8e8;
     font-size: 14px;
-    text-align: center;
-    padding: 9px 4px 12px 4px;
-    color: #222;
+    line-height: 1.35em;
+    padding-left: 16px;
 }
 
-div#post-info {
-    margin-left: 24px;
-}
-
-div#post p, div#post ol, div#post li {
-    line-height: 1.75em;
-}
-
-div#avatar-box {
-    float: right;
-    position: relative;
-    left: 50px;
-    margin-left: -40px;
-    padding: 12px;
-    background-color: #FFF;
-    border: 1px solid #999;
-    border-radius: 5px;
-
-    -webkit-transform:rotate(3deg);
-    -moz-transform:rotate(3deg);
-    -o-transform:rotate(3deg);
-    -ms-transform:rotate(3deg);
-}
-
-div#follow-button-box {
-    float: right;
-}
-
-ul#post-list {
-    padding-left: 1em;
-}
-
-img#avatar {
-    border-radius: 5px;
-}
-
-table#about {
+.highlighttable {
     width: 100%;
 }
 
-td#left-box {
-    width: 50%;
-    vertical-align: top;
+.highlighttable .highlight {
+    border: 0;
 }
 
-td#right-box {
-    padding-left: 25px;
-    vertical-align: top;
+.linenos {
+    color: #888;
 }
 
-td#about-tl { border-top-left-radius: 5px; border-top: 1px solid #AAA; }
-td#about-tr { border-top-right-radius: 5px; border-top: 1px solid #AAA; }
-td#about-bl { border-bottom-left-radius: 5px; border-bottom: 1px solid #AAA; }
-td#about-br { border-bottom-right-radius: 5px; border-bottom: 1px solid #AAA; }
-
-a:link { color: #373; text-decoration: none; }
-a:visited { color: #373; text-decoration: none; }
-a:hover { color: #040; text-decoration: underline; }
-a:active { color: #404; text-decoration: underline; }
-
-a.invert:link { text-decoration: underline; }
-a.invert:visited { text-decoration: underline; }
-a.invert:hover { text-decoration: none; }
-a.invert:active { text-decoration: none; }
-
-a.incognito:link { color: #000; text-decoration: none; }
-a.incognito:visited { color: #000; text-decoration: none; }
-a.incognito:hover { color: #000; text-decoration: underline; }
-a.incognito:active { color: #000; text-decoration: none; }
+#footer {
+    color: #444;
+    font-size: 85%;
+    text-align: center;
+}
