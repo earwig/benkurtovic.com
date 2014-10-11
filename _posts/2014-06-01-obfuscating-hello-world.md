@@ -75,7 +75,7 @@ sys.stdout.write("Hello world!\n")
 But let's use something lower-level:
 [`os.write()`](//docs.python.org/2/library/os.html#os.write). We need
 `stdout`'s [file descriptor](//en.wikipedia.org/wiki/File_descriptor), which is
-`1` (you can check with `print sys.stdout.fileno()`).
+`1` (you can check with `print sys.stdout.fileno()`).
 
 {% highlight python %}
 
@@ -137,7 +137,7 @@ getattr(
 `"Hello world!\n"` is more complicated. We're going to encode it as a big
 integer, which will be formed of the ASCII code of each character multiplied by
 256 to the power of the character's index in the string. In other words, the
-following series:
+following sum:
 
 <div>$$\sum_{n=0}^{L-1} c_n(256^n)$$</div>
 
