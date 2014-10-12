@@ -7,12 +7,13 @@ layout: base
     <ul id="post-info">
         <li><span><i class="fa fa-tag"></i> Tags:</span> {{ page.tags | join: ", " }}</li>
         <li><span><i class="fa fa-clock-o"></i> Date:</span> {{ page.date | date: "%B %-d, %Y" }}</li>
+        <li><span><i class="fa fa-comments"></i></span> <a href="#disqus_thread">Jump to comments</a></li>
     </ul>
     <div id="post">
         {{ content }}
     </div>
     <div id="disqus_thread"></div>
-    <script type="text/javascript">
+    <script>
         var disqus_shortname = 'earwig';
         var disqus_identifier = '{{ page.id }}';
         var disqus_title = '{{ page.title }}';
