@@ -114,6 +114,11 @@ p#bio {
     font-size: 14px;
 }
 
+#tags {
+    line-height: 2em;
+    margin: -0.375em 0;
+}
+
 .tag {
     background-color: #f2f2f2;
     border: 1px solid #e8e8e8;

@@ -104,7 +104,7 @@ title: Home
         </td>
         <td>
             <h2>Posts</h2>
-            <div>
+            <div id="tags">
                 Tags:
                 {% comment %} Based on code from Christian Specht at http://stackoverflow.com/a/24744306/2712951 {% endcomment %}
                 {% capture tags %}{% for tag in site.tags %}{{ tag[1].size | plus: 1000 }}#{{ tag[0] }}#{{ tag[1].size }}{% unless forloop.last %}|{% endunless %}{% endfor %}{% endcapture %}
