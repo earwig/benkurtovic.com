@@ -107,8 +107,12 @@ title: Home
             <h2>Posts</h2>
             <div>
                 Tags:
-                {% for tag in site.tags %}
-                    <span class="tag">{{tag[0]}}</span>
+                {% comment %} Based on code from Christian Specht at http://stackoverflow.com/a/24744306/2712951 {% endcomment %}
+                {% capture tags %}{% for tag in site.tags %}{{ tag[1].size | plus: 1000 }}#{{ tag[0] }}#{{ tag[1].size }}{% unless forloop.last %}|{% endunless %}{% endfor %}{% endcapture %}
+                {% assign sorted = tags | split: "|" | sort | reverse %}
+                {% for tag in sorted %}
+                    {% assign items = tag | split: "#" %}
+                    <span data-tag="{{ items[1] }}" class="tag">{{ items[1] }} <span class="subtitle">({{ items[2] }})</span></span>
                 {% endfor %}
             </div>
             <ul id="post-list" class="work-list">

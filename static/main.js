@@ -26,7 +26,7 @@ function load_tag_filters() {
     if (window.location.hash) {
         var tags = decodeURIComponent(window.location.hash.substr(1)).split("|");
         $(".tag").each(function() {
-            if ($.inArray($(this).text(), tags) != -1)
+            if ($.inArray($(this).data("tag"), tags) != -1)
                 $(this).toggleClass("tag-selected");
         });
         filter_posts(tags);
@@ -37,7 +37,7 @@ function load_tag_filters() {
 
         var tags = [];
         $(".tag-selected").each(function() {
-            tags.push($(this).text())
+            tags.push($(this).data("tag"))
         });
         if (tags.length > 0)
             window.location.hash = encodeURIComponent(tags.join("|"));
