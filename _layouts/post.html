@@ -5,7 +5,10 @@ layout: base
 <h1>{{ page.title }}</h1>
 <div id="content">
     <ul id="post-info">
-        <li><span><i class="fa fa-tag"></i> Tags:</span> {{ page.tags | join: ", " }}</li>
+        <li><span><i class="fa fa-tag"></i> Tags:</span>
+            {% for tag in page.tags %}
+                <a href="/#{{tag}}" class="post-tag">{{tag}}</a>
+            {% endfor %}
         <li><span><i class="fa fa-clock-o"></i> Date:</span> {{ page.date | date: "%B %-d, %Y" }}</li>
         <li><span><i class="fa fa-comments"></i></span> <a href="#disqus_thread">Jump to comments</a></li>
     </ul>

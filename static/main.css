@@ -134,6 +134,7 @@ a.underlined:hover, a.underlined:active { text-decoration: none; }
     border: 1px solid #e8e8e8;
     color: #888;
     cursor: pointer;
+    margin: 0 3px;
     padding: 0 3px;
 }
 
@@ -159,6 +160,17 @@ a.underlined:hover, a.underlined:active { text-decoration: none; }
 
 #post-info span {
     color: #777;
+}
+
+.post-tag {
+    background-color: #f2f2f2;
+    border: 1px solid #e8e8e8;
+    margin: 0 3px;
+    padding: 0 3px;
+}
+
+.post-tag:link, .post-tag:visited {
+    color: black;
 }
 
 pre {

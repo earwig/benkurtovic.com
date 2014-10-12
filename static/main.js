@@ -1,12 +1,5 @@
 function load_tag_filters() {
-    $(".tag").click(function() {
-        $(this).toggleClass("tag-selected");
-
-        var allowed = [];
-        $(".tag-selected").each(function() {
-            allowed.push($(this).text())
-        });
-
+    var filter_posts = function(filter) {
         var num_selected = $(".tag-selected").length;
         if (num_selected == 0 || num_selected == $(".tag").length)
             $("#post-list li").show();
@@ -15,13 +8,36 @@ function load_tag_filters() {
             $("#post-list li").each(function() {
                 var tags = $(this).data("tags").split("|");
                 for (var t in tags) {
-                    if ($.inArray(tags[t], allowed) != -1) {
+                    if ($.inArray(tags[t], filter) != -1) {
                         $(this).show();
                         return;
                     }
                 }
             });
         }
+    }
+
+    if (window.location.hash) {
+        var tags = window.location.hash.substr(1).split("|");
+        $(".tag").each(function() {
+            if ($.inArray($(this).text(), tags) != -1)
+                $(this).toggleClass("tag-selected");
+        });
+        filter_posts(tags);
+    }
+
+    $(".tag").click(function() {
+        $(this).toggleClass("tag-selected");
+
+        var tags = [];
+        $(".tag-selected").each(function() {
+            tags.push($(this).text())
+        });
+        if (tags.length > 0)
+            window.location.hash = tags.join("|");
+        else
+            history.pushState("", "", window.location.pathname);
+        filter_posts(tags);
     });
 }
 
