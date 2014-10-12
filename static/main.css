@@ -14,7 +14,10 @@ a.underlined:link, a.underlined:visited { text-decoration: underline; }
 a.underlined:hover, a.underlined:active { text-decoration: none; }
 
 #banner {
+    height: 94px;
+    line-height: 94px;
     background-color: black;
+    border-top: 4px solid #3d7751;
     text-align: center;
 }
 
@@ -25,6 +28,7 @@ a.underlined:hover, a.underlined:active { text-decoration: none; }
 
 #banner img {
     display: inline;
+    height: 92px;
     padding: 2px 0.5em 0 0;
     vertical-align: top;
 }
@@ -32,35 +36,8 @@ a.underlined:hover, a.underlined:active { text-decoration: none; }
 #banner h1 {
     display: inline;
     font-family: sans-serif;                                                        /* TODO */
-    text-align: center;
-}
-
-.banner-large {
-    height: 94px;
-    line-height: 94px;
-    border-top: 6px solid #3d7751;
-}
-
-.banner-large img {
-    height: 92px;
-}
-
-.banner-large h1 {
-    font-size: 2.5em;
-}
-
-.banner-small {
-    height: 66px;
-    line-height: 66px;
-    border-top: 4px solid #3d7751;
-}
-
-.banner-small img {
-    height: 64px;
-}
-
-.banner-small h1 {
     font-size: 2em;
+    text-align: center;
 }
 
 #container {
