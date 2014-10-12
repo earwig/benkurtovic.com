@@ -109,19 +109,11 @@ a.underlined:hover, a.underlined:active { text-decoration: none; }
     padding-right: 0.5em;
 }
 
-.project {
-    margin-bottom: 1.25em;
-}
-
-.project div:nth-child(2) {
-    font-size: 14px;
-}
-
-#project-list, #post-list {
+.work-list {
     padding-left: 1em;
 }
 
-#project-list li, #post-list li {
+.work-list li {
     margin-bottom: 1.25em;
 }
 
@@ -135,7 +127,7 @@ a.underlined:hover, a.underlined:active { text-decoration: none; }
     color: #888;
     cursor: pointer;
     margin: 0 3px;
-    padding: 0 3px;
+    padding: 2px 3px;
 }
 
 .tag-selected {
@@ -166,7 +158,7 @@ a.underlined:hover, a.underlined:active { text-decoration: none; }
     background-color: #f2f2f2;
     border: 1px solid #e8e8e8;
     margin: 0 3px;
-    padding: 0 3px;
+    padding: 2px 3px;
 }
 
 .post-tag:link, .post-tag:visited {

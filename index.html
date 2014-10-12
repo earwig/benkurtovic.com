@@ -28,40 +28,27 @@ title: Home
     <tr>
         <td>
             <h2>Projects</h2>
-            <div class="project">
-                <div>
-                    <a class="underlined" href="//github.com/earwig/mwparserfromhell">mwparserfromhell</a> <span class="subtitle"><i>(Python + C // started May 2012)</i></span>
-                </div>
-                <div>
-                    An easy-to-use and outrageously powerful Python parser for <a href="//mediawiki.org/">MediaWiki</a> wikicode
-                </div>
-            </div>
-            <div class="project">
-                <div>
-                    <a class="underlined" href="//github.com/earwig/earwigbot">earwigbot</a> <span class="subtitle"><i>(Python // started April 2009)</i></span>
-                </div>
-                <div>
-                    A modular Python robot that edits <a href="//en.wikipedia.org/">Wikipedia</a> and interacts with people over <a href="//en.wikipedia.org/wiki/Internet_Relay_Chat">IRC</a>, with <a href="//github.com/earwig/earwigbot-plugins">a separate repository for plugins</a>
-                </div>
-            </div>
-            <div class="project">
-                <div>
-                    <a class="underlined" href="//github.com/earwig/bitshift">bitshift</a> <span class="subtitle"><i>(Python + SQL + Web // started March 2014)</i></span>
-                </div>
-                <div>
-                    <a href="http://bitshift.it/">A semantic search engine</a> for source code
-                </div>
-            </div>
-            <div class="project">
-                <div>
-                    <a class="underlined" href="//github.com/earwig/copyvios">copyvios</a> <span class="subtitle"><i>(Python + Web // started July 2009)</i></span>
-                </div>
-                <div>
-                    <a href="//tools.wmflabs.org/copyvios">A copyright violation detector</a> for Wikipedia articles running on <a href="//tools.wmflabs.org/">Wikimedia Labs</a>
-                </div>
-            </div>
-            <h3>Other projects</h2>
-            <ul id="project-list">
+            <h3>Highlights</h3>
+            <ul class="work-list">
+                <li>
+                    <a class="underlined" href="//github.com/earwig/mwparserfromhell">mwparserfromhell</a> <span class="subtitle"><i>(Python + C // started May 2012)</i></span><br />
+                    <span class="subtitle">An easy-to-use and outrageously powerful Python parser for <a href="//mediawiki.org/">MediaWiki</a> wikicode</span>
+                </li>
+                <li>
+                    <a class="underlined" href="//github.com/earwig/earwigbot">earwigbot</a> <span class="subtitle"><i>(Python // started April 2009)</i></span><br />
+                    <span class="subtitle">A modular robot that edits <a href="//en.wikipedia.org/">Wikipedia</a> and interacts with people over <a href="//en.wikipedia.org/wiki/Internet_Relay_Chat">IRC</a>, with <a href="//github.com/earwig/earwigbot-plugins">a separate repository for plugins</a></span>
+                </li>
+                <li>
+                    <a class="underlined" href="//github.com/earwig/bitshift">bitshift</a> <span class="subtitle"><i>(Python + SQL + Web // started March 2014)</i></span><br />
+                    <span class="subtitle"><a href="http://bitshift.it/">A semantic search engine</a> for source code</span>
+                </li>
+                <li>
+                    <a class="underlined" href="//github.com/earwig/copyvios">copyvios</a> <span class="subtitle"><i>(Python + Web // started July 2009)</i></span><br />
+                    <span class="subtitle"><a href="//tools.wmflabs.org/copyvios">A copyright violation detector</a> for Wikipedia articles running on <a href="//tools.wmflabs.org/">Wikimedia Labs</a></span>
+                </li>
+            </ul>
+            <h3>Other work</h3>
+            <ul class="work-list">
                 <li>
                     <a class="underlined" href="//github.com/VjiaoBlack/Oriadnos">oriadnos</a> <span class="subtitle"><i>(C // started May 2014)</i></span><br />
                     <span class="subtitle">A 3D maze exploration game written from scratch using matrix manipulation code, <a href="//en.wikipedia.org/wiki/UV_mapping">UV texture mapping</a>, <a href="//en.wikipedia.org/wiki/Z-buffering">z-buffering</a>, and simple lighting</span>
@@ -124,7 +111,7 @@ title: Home
                     <span class="tag">{{tag[0]}}</span>
                 {% endfor %}
             </div>
-            <ul id="post-list">
+            <ul id="post-list" class="work-list">
                 {% for post in site.posts %}
                     <li data-tags="{{ post.tags | join: "|" }}">{{ post.date | date: "%b %-d, %Y" }}: <a class="underlined" href="{{ post.url }}">{{ post.title }}</a><br /><span class="subtitle">{{ post.description }}<br />{{ post.tags | join: ", " }} &middot; <a href="{{ post.url }}#disqus_thread" data-disqus-identifier="{{ post.id }}"></a></span></li>
                 {% endfor %}

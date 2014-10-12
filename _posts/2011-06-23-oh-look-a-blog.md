@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Oh Look, A Blog!
-tags: Wikipedia Misc
+tags: ["Status report"]
 description: Just kinda playing with the idea of my own site right now
 ---
 
