@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Oh Look, A Blog!
-tags: Misc
+tags: Wikipedia Misc
 description: Just kinda playing with the idea of my own site right now
 ---
 

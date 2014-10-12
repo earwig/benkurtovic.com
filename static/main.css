@@ -77,6 +77,38 @@ a.underlined:hover, a.underlined:active { text-decoration: none; }
     line-height: 1.75em;
 }
 
+#links {
+    width: 100%;
+    text-align: center;
+    border-spacing: 0;
+}
+
+#links td {
+    width: 16.666666666667%;
+}
+
+#links td:not(:first-child) {
+    border-left: 1px solid #CCC;
+}
+
+#work {
+    width: 100%;
+    border-spacing: 0;
+}
+
+#work td {
+    width: 50%;
+    vertical-align: top;
+}
+
+#work td:not(:first-child) {
+    padding-left: 0.5em;
+}
+
+#work td:not(:last-child) {
+    padding-right: 0.5em;
+}
+
 .project {
     margin-bottom: 1.25em;
 }
