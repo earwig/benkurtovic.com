@@ -94,10 +94,20 @@ p#bio {
 
 .work-list {
     padding-left: 1em;
+    list-style-type: none;
 }
 
 .work-list li {
     margin-bottom: 1.25em;
+    position: relative;
+}
+
+.work-list li:before {
+    content: "\27a4";
+    position: absolute;
+    left: -2em;
+    line-height: 3em;
+    font-size: 0.5em;
 }
 
 .subtitle {
@@ -199,6 +209,7 @@ pre code {
 }
 
 #footer {
+    margin-bottom: 1.5em;
     color: #444;
     font-size: 85%;
     text-align: center;
