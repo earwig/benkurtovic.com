@@ -2,11 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        {% if page.title == "Home" %}
-            <title>Ben Kurtovic</title>
-        {% else %}
-            <title>{{ page.title }} - Ben Kurtovic</title>
-        {% endif %}
+        <title>{% if page.title != "Home" %}{{ page.title }} - {% endif %}Ben Kurtovic</title>
         <link rel="icon" type="image/png" href="/static/favicon.png" />
         <link rel="stylesheet" href="/static/main.css" />
         <link rel="stylesheet" href="/static/syntax.css" /> <!-- shamelessly stolen from https://github.com/mojombo/tpw/blob/master/css/syntax.css -->

@@ -129,6 +129,19 @@ a.underlined:hover, a.underlined:active { text-decoration: none; }
     font-size: 14px;
 }
 
+.tag {
+    background-color: #f2f2f2;
+    border: 1px solid #e8e8e8;
+    color: #888;
+    cursor: pointer;
+    padding: 0 3px;
+}
+
+.tag-selected {
+    background-color: #ddd;
+    color: black;
+}
+
 #post-info {
     list-style-type: none;
     margin: 0;
@@ -153,7 +166,7 @@ pre {
 }
 
 code {
-    background: #f2f2f2;
+    background-color: #f2f2f2;
     border: 1px solid #e8e8e8;
     padding: 0 3px;
 }
@@ -164,7 +177,7 @@ pre code {
 }
 
 .highlight, .highlighttable {
-    background: #f2f2f2;
+    background-color: #f2f2f2;
     border: 1px solid #e8e8e8;
     font-size: 14px;
     line-height: 1.35em;
