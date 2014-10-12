@@ -3,10 +3,9 @@ layout: base
 title: Home
 ---
 
-<p>I'm a software developer and <a href="//en.wikipedia.org/">Wikipedian</a> currently studying computer science at the <a href="//illinois.edu/">University of Illinois at Urbana&ndash;Champaign</a>. My work mostly focuses on text parsing and analysis; I'm also interested in programming language theory and algorithm design.</p>
+<p>I'm a software developer and <a href="//en.wikipedia.org/">Wikipedian</a> currently studying computer science at the <a href="//illinois.edu/">University of Illinois at Urbana&ndash;Champaign</a>. My work mostly focuses on text parsing and analysis, but I'm also interested in programming language theory and algorithm design. Want to chat? Contact me at <a href="mailto:ben.kurtovic@gmail.com">ben.kurtovic@gmail.com</a>.</p>
 <table id="links">
     <tr>
-        <!-- <td>Email</td> -->
         <td>GitHub</td>
         <td>Freenode IRC</td>
         <td>Wikipedia</td>
@@ -15,7 +14,6 @@ title: Home
         <td>PGP Key</td>
     </tr>
     <tr>
-        <!-- <td><a href="mailto:ben.kurtovic@gmail.com">ben.kurtovic@gmail.com</a></td> -->
         <td><a href="//github.com/earwig">earwig</a></td>
         <td><a href="http://webchat.freenode.net/?channels=%23%23earwig">Earwig</a></td>
         <td><a href="//en.wikipedia.org/wiki/User:The_Earwig">The Earwig</a></td>
@@ -28,6 +26,7 @@ title: Home
     <tr>
         <td>
             <h2>Projects</h2>
+            <p class="subtitle">A look at what I've been up to for the past few years:</p>
             <h3>Highlights</h3>
             <ul class="work-list">
                 <li>
@@ -112,7 +111,7 @@ title: Home
                 {% assign sorted = tags | split: "|" | sort | reverse %}
                 {% for tag in sorted %}
                     {% assign items = tag | split: "#" %}
-                    <span data-tag="{{ items[1] }}" class="tag">{{ items[1] }} <span class="subtitle">({{ items[2] }})</span></span>
+                    <span data-tag="{{ items[1] }}" class="tag">{{ items[1] | replace: " ", "&nbsp;" }}&nbsp;<span class="subtitle">({{ items[2] }})</span></span>
                 {% endfor %}
             </div>
             <ul id="post-list" class="work-list">
