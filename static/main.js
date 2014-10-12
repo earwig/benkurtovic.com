@@ -1,3 +1,9 @@
+function fix_tag_links() {
+    $("#post-info").find("a").attr("href", function() {
+        return "/#" + encodeURIComponent($(this).text());
+    });
+}
+
 function load_tag_filters() {
     var filter_posts = function(filter) {
         var num_selected = $(".tag-selected").length;
@@ -18,7 +24,7 @@ function load_tag_filters() {
     }
 
     if (window.location.hash) {
-        var tags = window.location.hash.substr(1).split("|");
+        var tags = decodeURIComponent(window.location.hash.substr(1)).split("|");
         $(".tag").each(function() {
             if ($.inArray($(this).text(), tags) != -1)
                 $(this).toggleClass("tag-selected");
@@ -34,7 +40,7 @@ function load_tag_filters() {
             tags.push($(this).text())
         });
         if (tags.length > 0)
-            window.location.hash = tags.join("|");
+            window.location.hash = encodeURIComponent(tags.join("|"));
         else
             history.pushState("", "", window.location.pathname);
         filter_posts(tags);
@@ -53,6 +59,7 @@ function load_paragraph_links() {
 }
 
 $(document).ready(function() {
+    fix_tag_links();
     load_tag_filters();
     load_paragraph_links();
 });
