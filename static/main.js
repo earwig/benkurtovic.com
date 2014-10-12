@@ -1,5 +1,5 @@
 function fix_tag_links() {
-    $("#post-info").find("a").attr("href", function() {
+    $(".post-tag").attr("href", function() {
         return "/#" + encodeURIComponent($(this).text());
     });
 }
