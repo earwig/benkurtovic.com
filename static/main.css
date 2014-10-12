@@ -1,8 +1,10 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700|Oxygen:700);
+
 body {
     margin: 0;
     background-color: white;
     color: black;
-    font-family: sans-serif;                                                        /* TODO */
+    font-family: "Open Sans", sans-serif;
     font-size: 16px;
 }
 
@@ -35,8 +37,8 @@ a.underlined:hover, a.underlined:active { text-decoration: none; }
 
 #banner h1 {
     display: inline;
-    font-family: sans-serif;                                                        /* TODO */
     font-size: 2em;
+    font-family: "Oxygen", sans-serif;
     text-align: center;
 }
 
@@ -48,6 +50,10 @@ a.underlined:hover, a.underlined:active { text-decoration: none; }
 
 #container p {
     line-height: 1.25em;
+}
+
+p#bio {
+    line-height: 1.5em;
 }
 
 #content p, #content ol, #content li {
@@ -79,11 +85,11 @@ a.underlined:hover, a.underlined:active { text-decoration: none; }
 }
 
 #work td:not(:first-child) {
-    padding-left: 0.5em;
+    padding-left: 0.75em;
 }
 
 #work td:not(:last-child) {
-    padding-right: 0.5em;
+    padding-right: 0.75em;
 }
 
 .work-list {
