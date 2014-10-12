@@ -98,6 +98,21 @@ a.underlined:hover, a.underlined:active { text-decoration: none; }
     font-size: 14px;
 }
 
+#post-info {
+    list-style-type: none;
+    margin: 0;
+    padding-left: 0;
+}
+
+#post-info li {
+    line-height: 1em;
+    margin-bottom: 0.5em;
+}
+
+#post-info li:last-child {
+    margin-bottom: 0;
+}
+
 #post-info span {
     color: #777;
 }

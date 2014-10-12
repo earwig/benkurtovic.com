@@ -1,6 +1,7 @@
 ---
 layout: post
 title: EarwigBot Progress&#58; Wiki Toolset
+tags: Wikipedia
 description: YAWTF (Yet Another Wiki Tools Framework, or Yet Another... WTF?)
 ---
 

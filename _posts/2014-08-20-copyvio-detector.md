@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Copyvio Detector
+tags: Wikipedia
 description: A technical writeup of some recent developments
 ---
 

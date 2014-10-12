@@ -1,6 +1,7 @@
 ---
 layout: post
 title: EarwigBot Progress&#58; Page Editing
+tags: Wikipedia
 description: Exactly what it says on the tin
 ---
 

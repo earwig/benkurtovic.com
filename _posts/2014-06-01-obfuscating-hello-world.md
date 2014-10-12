@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Obfuscating "Hello world!"
+tags: Python
 description: Fun with functional programming in Python
 ---
 

@@ -136,9 +136,15 @@ title: Home
         </td>
         <td style="width: 50%; vertical-align: top;">
             <h2>Posts</h2>
+            <div>
+                Tags:
+                {% for tag in site.tags %}
+                    {{tag[0]}}
+                {% endfor %}
+            </div>
             <ul id="post-list">
                 {% for post in site.posts %}
-                    <li>{{ post.date | date: "%b %-d, %Y" }}: <a class="underlined" href="{{ post.url }}">{{ post.title }}</a><br /><span class="subtitle">{{ post.description }}<br /><!-- Category &middot; --><a href="{{ post.url }}#disqus_thread" data-disqus-identifier="{{ post.id }}"></a></span></li>
+                    <li>{{ post.date | date: "%b %-d, %Y" }}: <a class="underlined" href="{{ post.url }}">{{ post.title }}</a><br /><span class="subtitle">{{ post.description }}<br />{{ post.tags | join: ", " }} &middot; <a href="{{ post.url }}#disqus_thread" data-disqus-identifier="{{ post.id }}"></a></span></li>
                 {% endfor %}
             </ul>
         </td>

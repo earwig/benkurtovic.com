@@ -1,6 +1,7 @@
 ---
 layout: post
 title: EarwigBot and Toolserver Updates
+tags: Wikipedia
 description: More progress on EarwigBot and the Toolserver site rewrite, including dynamic backgrounds
 ---
 

@@ -4,9 +4,10 @@ layout: base
 
 <h1>{{ page.title }}</h1>
 <div id="content">
-    <div id="post-info">
-        <span><i class="fa fa-clock-o"></i> Date:</span> {{ page.date | date: "%B %-d, %Y" }}
-    </div>
+    <ul id="post-info">
+        <li><span><i class="fa fa-tag"></i> Tags:</span> {{ page.tags | join: ", " }}</li>
+        <li><span><i class="fa fa-clock-o"></i> Date:</span> {{ page.date | date: "%B %-d, %Y" }}</li>
+    </ul>
     <div id="post">
         {{ content }}
     </div>
