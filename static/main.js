@@ -11,6 +11,7 @@ function load_tag_filters() {
             filter.push($(this).data("tag"))
         });
         $("#post-list li").show();
+        $("#null-post").hide();
         if ($(".tag-selected").length == 0)
             return;
         $("#post-list li").each(function() {
@@ -22,6 +23,8 @@ function load_tag_filters() {
                 }
             }
         });
+        if ($("#post-list li:not(:hidden)").length == 0)
+            $("#null-post").show();
     }
 
     if (window.location.hash) {
