@@ -1,4 +1,5 @@
-safe: true
-lsi: false
+safe:        true
+lsi:         false
 highlighter: pygments
-markdown: kramdown
+markdown:    kramdown
+url:         https://benkurtovic.com
