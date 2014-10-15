@@ -116,7 +116,7 @@ title: Home
             </div>
             <ul id="post-list" class="work-list">
                 {% for post in site.posts %}
-                    <li data-tags="{{ post.tags | join: "|" }}">{{ post.date | date: "%b %-d, %Y" }}: <a class="underlined" href="{{ post.url }}">{{ post.title }}</a><br /><span class="subtitle">{{ post.description }}<br />{{ post.tags | join: ", " }} &middot; <a href="{{ post.url }}#disqus_thread" data-disqus-identifier="{{ post.id }}"></a></span></li>
+                    <li data-tags="{{ post.tags | join: "|" }}">{{ post.date | date: "%b %-d, %Y" }}: <a class="underlined" href="{{ post.url }}">{{ post.title }}</a><br /><span class="subtitle">{{ post.description }}<br />{{ post.tags | join: ", " }} {% unless post.draft %} &middot; <a href="{{ post.url }}#disqus_thread" data-disqus-identifier="{{ post.id }}"></a>{% endunless %}</span></li>
                 {% endfor %}
                 <li id="null-post" data-tags="" style="display: none;"><i>No posts with these tags</i></li>
             </ul>
