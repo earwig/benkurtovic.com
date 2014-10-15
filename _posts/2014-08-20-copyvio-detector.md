@@ -71,7 +71,8 @@ holding true. The exact coefficients used are shown below:
 -0.8939(\frac{\Delta}{A})^2+1.8948\frac{\Delta}{A}-0.0009 &
 \frac{\Delta}{A} \gt 0.52763 \end{cases}$$</div>
 
-A graph can be viewed [here](/static/article-delta_confidence_function.pdf),
+A graph can be viewed
+[here](/static/content/copyvio-detector/article-delta_confidence_function.pdf),
 with the x-axis indicating <span>\\(\frac{\Delta}{A}\\)</span> and the y-axis
 indicating confidence. The background is colored red, yellow, and green when a
 violation is considered suspected, possible, or not present, respectively.
@@ -88,8 +89,9 @@ points were <span>\\(\\{(0, 0), (100, 0.5), (250, 0.75), (500, 0.9),
 \frac{10.5\Delta-750}{10\Delta} & 250\lt \Delta\leq 500\; \\[0.5em]
 \frac{\Delta-50}{\Delta} & \Delta\gt500 \end{cases}$$</div>
 
-A graph can be viewed [here](/static/delta_confidence_function.pdf), with the
-x-axis indicating <span>\\(\Delta\\)</span>. The background coloring is the
+A graph can be viewed
+[here](/static/content/copyvio-detector/delta_confidence_function.pdf), with
+the x-axis indicating <span>\\(\Delta\\)</span>. The background coloring is the
 same as before.
 
 Now that we have these two definitions, we can define the primary confidence

@@ -1,9 +1,9 @@
-This is a personal website of mine, showcasing my code work and linking to some
-other sites where I have relevant profiles.
+This is my personal website, home to information about my work and some blog
+posts.
 
 All content on this site is released under the MIT License (see below), with
-the exception of content in `_posts/`, which is not to be reused without
-permission.
+the exception of content in `_posts/`, `_drafts/`, and non-CSS/JS files in
+`static/`, which are not to be reused without permission.
 
 LICENSE
 -------
