@@ -61,17 +61,35 @@ p#bio {
 }
 
 #links {
-    width: 100%;
     text-align: center;
-    border-spacing: 0;
 }
 
-#links td {
-    width: 16.666666666667%;
+#links div {
+    display: inline-block;
 }
 
-#links td:not(:first-child) {
-    border-left: 1px solid #CCC;
+@media (min-width: 800px) {
+    #links div {
+        width: 16%;
+    }
+
+    #links div:not(:first-child) {
+        border-left: 1px solid #CCC;
+    }
+}
+
+@media (max-width: 799px) {
+    #links div {
+        width: 32%;
+    }
+
+    #links div:nth-child(-n+3) {
+        margin-bottom: 1em;
+    }
+
+    #links div:not(:nth-child(3n+1)) {
+        border-left: 1px solid #CCC;
+    }
 }
 
 #work {
