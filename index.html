@@ -119,7 +119,7 @@ projects:
             <div id="tags">
                 Tags:
                 {% comment %} Based on code from Christian Specht at http://stackoverflow.com/a/24744306/2712951 {% endcomment %}
-                {% capture tags %}{% for tag in site.tags %}{{ tag[1].size | plus: 1000 }}#{{ tag[0] }}#{{ tag[1].size }}{% unless forloop.last %}|{% endunless %}{% endfor %}{% endcapture %}
+                {% capture tags %}{% for tag in site.tags %}{{ tag[1].size | plus: 10000 }}{{ tag[1].first.date | date: "%Y%m%d" }}#{{ tag[0] }}#{{ tag[1].size }}{% unless forloop.last %}|{% endunless %}{% endfor %}{% endcapture %}
                 {% assign sorted = tags | split: "|" | sort | reverse %}
                 {% for tag in sorted %}
                     {% assign items = tag | split: "#" %}
@@ -128,7 +128,7 @@ projects:
             </div>
             <ul id="post-list" class="work-list">
                 {% for post in site.posts %}
-                    <li data-tags="{{ post.tags | join: "|" }}">{{ post.date | date: "%b %-d, %Y" }}: <a class="underlined" href="{{ post.url }}">{{ post.title }}</a><br /><span class="subtitle">{{ post.description }}<br />{{ post.tags | join: ", " }} {% unless post.draft %} &middot; <a href="{{ post.url }}#disqus_thread" data-disqus-identifier="{{ post.id }}"></a>{% endunless %}</span></li>
+                    <li data-tags="{{ post.tags | join: "|" }}">{{ post.date | date: "%b %-d, %Y" }}: <a class="underlined" href="{{ post.url }}">{{ post.title }}</a><br /><span class="subtitle">{{ post.description }}<br />{{ post.tags | join: ", " }} &middot; {% if post.draft %}<span class="draft">Draft</span>{% else %}<a href="{{ post.url }}#disqus_thread" data-disqus-identifier="{{ post.id }}"></a>{% endif %}</span></li>
                 {% endfor %}
                 <li id="null-post" data-tags="" style="display: none;"><i>No posts with these tags</i></li>
             </ul>

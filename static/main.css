@@ -138,17 +138,21 @@ p#bio {
 }
 
 .tag {
-    background-color: #f2f2f2;
+    background-color: #f8f8f8;
     border: 1px solid #e8e8e8;
     color: #888;
     cursor: pointer;
     margin: 0 3px;
-    padding: 2px 3px;
+    padding: 1px 3px;
 }
 
 .tag-selected {
     background-color: #ddd;
     color: black;
+}
+
+.draft {
+    color: red;
 }
 
 #post-info {
@@ -171,10 +175,10 @@ p#bio {
 }
 
 .post-tag {
-    background-color: #f2f2f2;
+    background-color: #f8f8f8;
     border: 1px solid #e8e8e8;
     margin: 0 3px;
-    padding: 2px 3px;
+    padding: 1px 3px;
 }
 
 .post-tag:link, .post-tag:visited {
@@ -186,7 +190,7 @@ pre {
 }
 
 code {
-    background-color: #f2f2f2;
+    background-color: #f8f8f8;
     border: 1px solid #e8e8e8;
     padding: 0 3px;
 }
@@ -197,7 +201,7 @@ pre code {
 }
 
 .highlight, .highlighttable {
-    background-color: #f2f2f2;
+    background-color: #f8f8f8;
     border: 1px solid #e8e8e8;
     font-size: 14px;
     line-height: 1.35em;
