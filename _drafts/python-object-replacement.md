@@ -11,7 +11,8 @@ _object replacement_.
 
 ## Review
 
-First, a recap on terminology here. You can skip this if you know Python well.
+First, a recap on terminology here. You can skip this section if you know
+Python well.
 
 In Python, _names_ are what most languages call "variables". They reference
 _objects_. So when we do:
@@ -59,17 +60,50 @@ d = wrapper(a)
 [insert charts here]
 
 Note that these references are all equal. `a` is no more valid a name for the
-list than `b`, `c.data`, or `L` from the perspective of `d` (and
-`d.func_closure[0].cell_contents` from the perspective of the outside world,
-even though that's cumbersome and you would never do that in practice). As a
-result, if you delete one of these references—explicitly with `del a`, or
-implicitly if a name goes out of scope—then the other references are still
-around, and object continues to exist. If all of an object's references
-disappear, then Python's garbage collector will eliminate it.
+list than `b`, `c.data`, or `L` (from the perspective of `d`, which is exposed
+to everyone else as `d.func_closure[0].cell_contents`, but that's cumbersome
+and you would never do that in practice). As a result, if you delete one of
+these references—explicitly with `del a`, or implicitly if a name goes out of
+scope—then the other references are still around, and object continues to
+exist. If all of an object's references disappear, then Python's garbage
+collector will eliminate it.
+
+## The task
+
+Say you have some program that's been running for a while, and a particular
+object has made its way throughout your code. It lives inside lists, class
+attributes, maybe even inside some closures. You want to completely replace
+this object with another one; that is to say, you want to find all references
+to object `A` and replace them with object `B`, enabling `A` to be garbage
+collected.
+
+_But why on Earth would you want to do that?_ you ask. I'll focus on a concrete
+use case in a future post, but for now, I imagine this could be useful in some
+kind of advanted unit testing situation with mock objects. Still, it's fairly
+insane, so let's leave it as primarily an intellectual exercise.
 
 ## Fishing for references with Guppy
 
-[...]
+Guppy!
 
-So, what this boils down to is finding all references to a given object and
-replacing them with another object.
+## Handling different references
+
+### Dictionaries
+
+dicts, class attributes via `__dict__`, locals()
+
+### Lists
+
+....
+
+### Tuples
+
+recursively replace parent since immutable
+
+### Closure cells
+
+function closures
+
+### Bound methods
+
+bound built-in methods separately?
