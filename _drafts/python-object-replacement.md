@@ -9,6 +9,18 @@ draft: true
 Today, we're going to demonstrate a fairly evil thing in Python, which I call
 _object replacement_.
 
+Say you have some program that's been running for a while, and a particular
+object has made its way throughout your code. It lives inside lists, class
+attributes, maybe even inside some closures. You want to completely replace
+this object with another one; that is to say, you want to find all references
+to object `A` and replace them with object `B`, enabling `A` to be garbage
+collected.
+
+_But why on Earth would you want to do that?_ you ask. I'll focus on a concrete
+use case in a future post, but for now, I imagine this could be useful in some
+kind of advanted unit testing situation with mock objects. Still, it's fairly
+insane, so let's leave it as primarily an intellectual exercise.
+
 ## Review
 
 First, a recap on terminology here. You can skip this section if you know
@@ -66,21 +78,7 @@ and you would never do that in practice). As a result, if you delete one of
 these references—explicitly with `del a`, or implicitly if a name goes out of
 scope—then the other references are still around, and object continues to
 exist. If all of an object's references disappear, then Python's garbage
-collector will eliminate it.
-
-## The task
-
-Say you have some program that's been running for a while, and a particular
-object has made its way throughout your code. It lives inside lists, class
-attributes, maybe even inside some closures. You want to completely replace
-this object with another one; that is to say, you want to find all references
-to object `A` and replace them with object `B`, enabling `A` to be garbage
-collected.
-
-_But why on Earth would you want to do that?_ you ask. I'll focus on a concrete
-use case in a future post, but for now, I imagine this could be useful in some
-kind of advanted unit testing situation with mock objects. Still, it's fairly
-insane, so let's leave it as primarily an intellectual exercise.
+collector should eliminate it.
 
 ## Fishing for references with Guppy
 
@@ -94,16 +92,21 @@ dicts, class attributes via `__dict__`, locals()
 
 ### Lists
 
-....
+simple replacement
 
 ### Tuples
 
 recursively replace parent since immutable
 
+### Bound methods
+
+note that built-in methods and regular methods have different underlying C
+structs, but have the same offsets for their self field
+
 ### Closure cells
 
 function closures
 
-### Bound methods
+### Frames
 
-bound built-in methods separately?
+...
