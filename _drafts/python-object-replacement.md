@@ -82,9 +82,13 @@ collector should eliminate it.
 
 ## Fishing for references with Guppy
 
-Guppy!
+So, this boils down to finding all of the references to a particular object,
+and then updating them to point to a different object.
 
-## Handling different references
+But how do we track references? Fortunately for us, there is a library called
+[Guppy](http://guppy-pe.sourceforge.net/) that allows us to do this.
+
+## Handling different reference types
 
 ### Dictionaries
 
@@ -110,3 +114,15 @@ function closures
 ### Frames
 
 ...
+
+### Classes
+
+...
+
+### Other cases
+
+Certainly, not every case is handled above, but it seems to cover the vast
+majority of instances that I've found through testing. Remaining areas to
+explore include behavior when metaclasses and more complex descriptors are
+involved. Implementing a more complete version of `replace()` is left as an
+exercise for the reader.
