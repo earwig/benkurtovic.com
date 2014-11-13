@@ -115,6 +115,10 @@ function closures
 
 ...
 
+### Slots
+
+...
+
 ### Classes
 
 ...
@@ -122,7 +126,18 @@ function closures
 ### Other cases
 
 Certainly, not every case is handled above, but it seems to cover the vast
-majority of instances that I've found through testing. Remaining areas to
-explore include behavior when metaclasses and more complex descriptors are
-involved. Implementing a more complete version of `replace()` is left as an
-exercise for the reader.
+majority of instances that I've found through testing. There are a number of
+reference relations in Guppy that I couldn't figure out how to replicate
+without doing something insane (`R_CELL` and `R_STACK`), so some obscure
+replacements are likely unimplemented.
+
+Some other kinds of replacements are known, but impossible. For example,
+replacing a class object that uses `__slots__` with another class will not work
+if the replacement class has a different slot layout and instances of the old
+class exist. Furthermore, it doesn't work for references stored in the code of
+C extensions, since there's effectively no way for us to track these, but this
+is an exceptional circumstance.
+
+Remaining areas to explore include behavior when metaclasses and more complex
+descriptors are involved. Implementing a more complete version of `replace()`
+is left as an exercise for the reader.
