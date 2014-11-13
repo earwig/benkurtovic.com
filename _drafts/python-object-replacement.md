@@ -14,7 +14,10 @@ object has made its way throughout your code. It lives inside lists, class
 attributes, maybe even inside some closures. You want to completely replace
 this object with another one; that is to say, you want to find all references
 to object `A` and replace them with object `B`, enabling `A` to be garbage
-collected.
+collected. This has some interesting implications for special object types. If
+you have methods that are bound to `A`, you want to rebind them to `B`. If `A`
+is a class, you want all instances of `A` to become instances of `B`. And so
+on.
 
 _But why on Earth would you want to do that?_ you ask. I'll focus on a concrete
 use case in a future post, but for now, I imagine this could be useful in some
@@ -38,7 +41,7 @@ a = [1, 2, 3, 4]
 We are creating a list object with four integers, and binding it to the name
 `a`:
 
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="303px" height="53px" version="1.1"><defs/><g transform="translate(0.5,0.5)"><rect x="181" y="6" width="120" height="40" fill="#ffffff" stroke="#000000" pointer-events="none"/><g transform="translate(185,17)"><switch><foreignObject pointer-events="all" width="112" height="20" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; font-size: 14px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.26; vertical-align: top; width: 112px; white-space: normal; text-align: center;"><div xmlns="http://www.w3.org/1999/xhtml" style="display:inline-block;text-align:inherit;text-decoration:inherit;"><font face="Courier New">[1, 2, 3, 4]</font></div></div></foreignObject><text x="56" y="17" fill="#000000" text-anchor="middle" font-size="14px" font-family="Helvetica">[Not supported by viewer]</text></switch></g><ellipse cx="26" cy="26" rx="25" ry="25" fill="#ffffff" stroke="#000000" pointer-events="none"/><g transform="translate(13,11)"><switch><foreignObject pointer-events="all" width="26" height="32" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; font-size: 24px; font-family: 'Courier New'; color: rgb(0, 0, 0); line-height: 1.26; vertical-align: top; width: 26px; white-space: normal; text-align: center;"><div xmlns="http://www.w3.org/1999/xhtml" style="display:inline-block;text-align:inherit;text-decoration:inherit;">a</div></div></foreignObject><text x="13" y="28" fill="#000000" text-anchor="middle" font-size="24px" font-family="Courier New">[Not supported by viewer]</text></switch></g><path d="M 51 26 L 175 26" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/><path d="M 180 26 L 173 30 L 175 26 L 173 23 Z" fill="#000000" stroke="#000000" stroke-miterlimit="10" pointer-events="none"/></g></svg>
+<svg width="223pt" height="44pt" viewBox="0.00 0.00 223.01 44.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 40)"><title>%3</title><polygon fill="white" stroke="none" points="-4,4 -4,-40 219.012,-40 219.012,4 -4,4"/><g id="node1" class="node"><title>L</title><polygon fill="none" stroke="black" stroke-width="0.5" points="215.018,-36 126.994,-36 126.994,-0 215.018,-0 215.018,-36"/><text text-anchor="middle" x="171.006" y="-15" font-family="Courier,monospace" font-size="10.00">[1, 2, 3, 4]</text></g><g id="node2" class="node"><title>a</title><ellipse fill="none" stroke="black" stroke-width="0.5" cx="27" cy="-18" rx="27" ry="18"/><text text-anchor="middle" x="27" y="-13.8" font-family="Courier,monospace" font-size="14.00">a</text></g><g id="edge1" class="edge"><title>a&#45;&gt;L</title><path fill="none" stroke="black" stroke-width="0.5" d="M54.0461,-18C72.2389,-18 97.1211,-18 119.173,-18"/><polygon fill="black" stroke="black" stroke-width="0.5" points="119.339,-20.6251 126.839,-18 119.339,-15.3751 119.339,-20.6251"/></g></g></svg>
 
 In each of the following examples, we are creating new _references_ to the
 list object, but we are never duplicating it. Each reference points to the same
@@ -128,15 +131,16 @@ function closures
 Certainly, not every case is handled above, but it seems to cover the vast
 majority of instances that I've found through testing. There are a number of
 reference relations in Guppy that I couldn't figure out how to replicate
-without doing something insane (`R_CELL` and `R_STACK`), so some obscure
-replacements are likely unimplemented.
+without doing something insane (`R_HASATTR`, `R_CELL`, and `R_STACK`), so some
+obscure replacements are likely unimplemented.
 
 Some other kinds of replacements are known, but impossible. For example,
 replacing a class object that uses `__slots__` with another class will not work
 if the replacement class has a different slot layout and instances of the old
-class exist. Furthermore, it doesn't work for references stored in the code of
-C extensions, since there's effectively no way for us to track these, but this
-is an exceptional circumstance.
+class exist. More generally, replacing a class with a non-class object won't
+work if instances of the class exist. Furthermore, references stored in data
+structures managed by C extensions cannot be changed, since there's no good way
+for us to track these.
 
 Remaining areas to explore include behavior when metaclasses and more complex
 descriptors are involved. Implementing a more complete version of `replace()`
