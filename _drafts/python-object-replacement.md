@@ -24,6 +24,9 @@ use case in a future post, but for now, I imagine this could be useful in some
 kind of advanted unit testing situation with mock objects. Still, it's fairly
 insane, so let's leave it as primarily an intellectual exercise.
 
+This article is written for [CPython](https://en.wikipedia.org/wiki/CPython)
+2.7.<sup><a id="ref1" href="#fn1">[1]</a></sup>
+
 ## Review
 
 First, a recap on terminology here. You can skip this section if you know
@@ -38,15 +41,14 @@ a = [1, 2, 3, 4]
 
 {% endhighlight %}
 
-We are creating a list object with four integers, and binding it to the name
-`a`:
+...we are creating a list object with four integers, and binding it to the name
+`a`. In graph form:<sup><a id="ref2" href="#fn2">[2]</a></sup>
 
 <svg width="223pt" height="44pt" viewBox="0.00 0.00 223.01 44.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 40)"><title>%3</title><polygon fill="white" stroke="none" points="-4,4 -4,-40 219.012,-40 219.012,4 -4,4"/><g id="node1" class="node"><title>L</title><polygon fill="none" stroke="black" stroke-width="0.5" points="215.018,-36 126.994,-36 126.994,-0 215.018,-0 215.018,-36"/><text text-anchor="middle" x="171.006" y="-15" font-family="Courier,monospace" font-size="10.00">[1, 2, 3, 4]</text></g><g id="node2" class="node"><title>a</title><ellipse fill="none" stroke="black" stroke-width="0.5" cx="27" cy="-18" rx="27" ry="18"/><text text-anchor="middle" x="27" y="-13.8" font-family="Courier,monospace" font-size="14.00">a</text></g><g id="edge1" class="edge"><title>a&#45;&gt;L</title><path fill="none" stroke="black" stroke-width="0.5" d="M54.0461,-18C72.2389,-18 97.1211,-18 119.173,-18"/><polygon fill="black" stroke="black" stroke-width="0.5" points="119.339,-20.6251 126.839,-18 119.339,-15.3751 119.339,-20.6251"/></g></g></svg>
 
 In each of the following examples, we are creating new _references_ to the
 list object, but we are never duplicating it. Each reference points to the same
-memory address (which you can get using `id(a)`, but that's a CPython
-implementation detail).
+memory address (which you can get using `id(a)`).
 
 {% highlight python %}
 
@@ -83,13 +85,125 @@ scope—then the other references are still around, and object continues to
 exist. If all of an object's references disappear, then Python's garbage
 collector should eliminate it.
 
+## Dead ends
+
+My first thought when approaching this problem was to physically write over the
+memory where our target object is stored. This can be done using
+[`ctypes.memmove()`](https://docs.python.org/2/library/ctypes.html#ctypes.memmove)
+from the Python standard library:
+
+{% highlight pycon %}
+
+>>> class A(object): pass
+...
+>>> class B(object): pass
+...
+>>> obj = A()
+>>> print obj
+<__main__.A object at 0x10e3e1190>
+>>> import ctypes
+>>> ctypes.memmove(id(A), id(B), object.__sizeof__(A))
+140576340136752
+>>> print obj
+<__main__.B object at 0x10e3e1190>
+
+{% endhighlight %}
+
+What we are doing here is overwriting the fields of the `A` instance of the
+[`PyClassObject` C struct](https://github.com/python/cpython/blob/2.7/Include/classobject.h#L12)
+with fields from the `B` struct instance. As a result, they now share various
+properties, such as their attribute dictionaries
+([`__dict__`](https://docs.python.org/2/reference/datamodel.html#the-standard-type-hierarchy)).
+So, we can do things like this:
+
+{% highlight pycon %}
+
+>>> B.foo = 123
+>>> obj.foo
+123
+
+{% endhighlight %}
+
+However, there are clear issues. What we've done is create a
+[_shallow copy_](https://en.wikipedia.org/wiki/Object_copy#Shallow_copy).
+Therefore, `A` and `B` are still distinct objects, so certain changes made to
+one will not be replicated to the other:
+
+{% highlight pycon %}
+
+>>> A is B
+False
+>>> B.__name__ = "C"
+>>> A.__name__
+'B'
+
+{% endhighlight %}
+
+Also, this won't work if `A` and `B` are different sizes, since we will be
+either reading from or writing to memory we don't necessarily own:
+
+{% highlight pycon %}
+
+>>> A = ()
+>>> B = []
+>>> print A.__sizeof__(), B.__sizeof__()
+24 40
+>>> import ctypes
+>>> ctypes.memmove(id(A), id(B), A.__sizeof__())
+4321271888
+Python(33575,0x7fff76925300) malloc: *** error for object 0x6f: pointer being freed was not allocated
+*** set a breakpoint in malloc_error_break to debug
+Abort trap: 6
+
+{% endhighlight %}
+
+Oh, and there's a bit of a problem when we deallocate these objects, too...
+
+{% highlight pycon %}
+
+>>> A = []
+>>> B = range(8)
+>>> import ctypes
+>>> ctypes.memmove(id(A), id(B), A.__sizeof__())
+4514685728
+>>> print A
+[0, 1, 2, 3, 4, 5, 6, 7]
+>>> del A
+>>> del B
+Segmentation fault: 11
+
+{% endhighlight %}
+
 ## Fishing for references with Guppy
 
-So, this boils down to finding all of the references to a particular object,
-and then updating them to point to a different object.
+A more correct solution is finding all of the _references_ to the old object,
+and then updating them to point to the new object, rather than replacing the
+old object directly.
 
-But how do we track references? Fortunately for us, there is a library called
-[Guppy](http://guppy-pe.sourceforge.net/) that allows us to do this.
+But how do we track references? Fortunately, there is a library called
+[Guppy](http://guppy-pe.sourceforge.net/) that allows us to do this. Often used
+for diagnosing memory leaks, we can take advantage of its robust object
+tracking features here. Install it with [pip](https://pypi.python.org/pypi/pip)
+(`pip install guppy`).
+
+I've always found Guppy hard to use (as many debuggers are, though justified by
+the complexity of the task involved), so we'll begin with a feature demo before
+delving into the actual problem.
+
+### Feature demonstration
+
+Guppy's interface is deceptively simple. We begin by creating an instance of
+the Heapy interface, which is the component of Guppy that has the features we
+want:
+
+{% highlight pycon %}
+
+>>> import guppy
+>>> hp = guppy.hpy()
+
+{% endhighlight %}
+
+[...]
 
 ## Handling different reference types
 
@@ -148,6 +262,15 @@ is left as an exercise for the reader.
 
 ## Notes
 
-The [DOT files](https://en.wikipedia.org/wiki/DOT_(graph_description_language))
-used to generate graphs in this post are
-[available on Gist](https://gist.github.com/earwig/edc13f04f871c110eea6).
+1. <a id="fn1" href="#ref1">^</a> This post relies _heavily_ on implementation
+   details of CPython 2.7. While it could be adapted for Python 3 by examining
+   changes to the internal structures of objects that we used above, that would
+   be a lost cause if you wanted to replicate this on
+   [Jython](http://www.jython.org/) or some other implementation. We are so
+   dependent on concepts specific to CPython that you would need to start from
+   scratch, beginning with a language-specific replacement for Guppy.
+
+2. <a id="fn2" href="#ref2">^</a> The
+   [DOT files](https://en.wikipedia.org/wiki/DOT_(graph_description_language))
+   used to generate graphs in this post are
+   [available on Gist](https://gist.github.com/earwig/edc13f04f871c110eea6).
