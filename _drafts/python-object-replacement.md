@@ -145,3 +145,9 @@ for us to track these.
 Remaining areas to explore include behavior when metaclasses and more complex
 descriptors are involved. Implementing a more complete version of `replace()`
 is left as an exercise for the reader.
+
+## Notes
+
+The [DOT files](https://en.wikipedia.org/wiki/DOT_(graph_description_language))
+used to generate graphs in this post are
+[available on Gist](https://gist.github.com/earwig/edc13f04f871c110eea6).
