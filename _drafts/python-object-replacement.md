@@ -140,7 +140,7 @@ False
 {% endhighlight %}
 
 Also, this won't work if `A` and `B` are different sizes, since we will be
-either reading from or writing to memory we don't necessarily own:
+either reading from or writing to memory that we don't necessarily own:
 
 {% highlight pycon %}
 
@@ -192,20 +192,258 @@ delving into the actual problem.
 
 ### Feature demonstration
 
-Guppy's interface is deceptively simple. We begin by creating an instance of
-the Heapy interface, which is the component of Guppy that has the features we
-want:
+Guppy's interface is deceptively simple. We begin by calling
+[`guppy.hpy()`](http://guppy-pe.sourceforge.net/guppy.html#kindnames.guppy.hpy),
+to expose the Heapy interface, which is the component of Guppy that has the
+features we want:
 
 {% highlight pycon %}
 
 >>> import guppy
 >>> hp = guppy.hpy()
+>>> hp
+Top level interface to Heapy.
+Use eg: hp.doc for more info on hp.
 
 {% endhighlight %}
 
-[...]
+Calling
+[`hp.heap()`](http://guppy-pe.sourceforge.net/heapy_Use.html#heapykinds.Use.heap)
+shows us a table of the objects known to Guppy, grouped together
+(mathematically speaking,
+[_partitioned_](https://en.wikipedia.org/wiki/Partition_of_a_set)) by
+type<sup><a id="ref3" href="#fn3">[3]</a></sup> and sorted by how much space
+they take up in memory:
+
+{% highlight pycon %}
+
+>>> heap = hp.heap()
+>>> heap
+Partition of a set of 45761 objects. Total size = 4699200 bytes.
+ Index  Count   %     Size   % Cumulative  % Kind (class / dict of class)
+     0  15547  34  1494736  32   1494736  32 str
+     1   8356  18   770272  16   2265008  48 tuple
+     2    346   1   452080  10   2717088  58 dict (no owner)
+     3  13685  30   328440   7   3045528  65 int
+     4     71   0   221096   5   3266624  70 dict of module
+     5   1652   4   211456   4   3478080  74 types.CodeType
+     6    199   0   210856   4   3688936  79 dict of type
+     7   1614   4   193680   4   3882616  83 function
+     8    199   0   177008   4   4059624  86 type
+     9    124   0   135328   3   4194952  89 dict of class
+<91 more rows. Type e.g. '_.more' to view.>
+
+{% endhighlight %}
+
+This object (called an
+[`IdentitySet`](http://guppy-pe.sourceforge.net/heapy_UniSet.html#heapykinds.IdentitySet))
+looks bizarre, but it can be treated roughly like a list. If we want to take a
+look at strings, we can do `heap[0]`:
+
+{% highlight pycon %}
+
+>>> heap[0]
+Partition of a set of 22606 objects. Total size = 2049896 bytes.
+ Index  Count   %     Size   % Cumulative  % Kind (class / dict of class)
+     0  22606 100  2049896 100   2049896 100 str
+
+{% endhighlight %}
+
+This isn't very useful, though. What we really want to do is re-partition this
+subset by another relationship. There are a number of options:
+
+{% highlight pycon %}
+
+>>> heap[0].byid  # Group by object ID; each subset therefore has one element
+Set of 22606 <str> objects. Total size = 2049896 bytes.
+ Index     Size   %   Cumulative  %   Representation (limited)
+     0     7480   0.4      7480   0.4 'The class Bi... copy of S.\n'
+     1     4872   0.2     12352   0.6 "Support for ... 'error'.\n\n"
+     2     4760   0.2     17112   0.8 'Heap queues\...at Art! :-)\n'
+     3     4760   0.2     21872   1.1 'Heap queues\...at Art! :-)\n'
+     4     3896   0.2     25768   1.3 'This module ...ng function\n'
+     5     3824   0.2     29592   1.4 'The type of ...call order.\n'
+     6     3088   0.2     32680   1.6 't\x00\x00|\x...x00|\x02\x00S'
+     7     2992   0.1     35672   1.7 'HeapView(roo... size, etc.\n'
+     8     2808   0.1     38480   1.9 'Directory tr...ories\n\n    '
+     9     2640   0.1     41120   2.0 'The class No... otherwise.\n'
+<22596 more rows. Type e.g. '_.more' to view.>
+
+{% endhighlight %}
+
+{% highlight pycon %}
+
+>>> heap[0].byrcs  # Group by what types of objects reference the strings
+Partition of a set of 22606 objects. Total size = 2049896 bytes.
+ Index  Count   %     Size   % Cumulative  % Referrers by Kind (class / dict of class)
+     0   6146  27   610752  30    610752  30 types.CodeType
+     1   5304  23   563984  28   1174736  57 tuple
+     2   4104  18   237536  12   1412272  69 dict (no owner)
+     3   1959   9   139880   7   1552152  76 list
+     4    564   2   136080   7   1688232  82 function, tuple
+     5    809   4    97896   5   1786128  87 dict of module
+     6    346   2    71760   4   1857888  91 dict of type
+     7    365   2    19408   1   1877296  92 dict of module, tuple
+     8    192   1    16176   1   1893472  92 dict (no owner), list
+     9    232   1    11784   1   1905256  93 dict of class, function, tuple, types.CodeType
+<229 more rows. Type e.g. '_.more' to view.>
+
+{% endhighlight %}
+
+{% highlight pycon %}
+
+>>> heap[0].byvia  # Group by how the strings are related to their referrers
+Partition of a set of 22606 objects. Total size = 2049896 bytes.
+ Index  Count   %     Size   % Cumulative  % Referred Via:
+     0   2656  12   420456  21    420456  21 '[0]'
+     1   2095   9   259008  13    679464  33 '.co_code'
+     2   2095   9   249912  12    929376  45 '.co_filename'
+     3    564   2   136080   7   1065456  52 '.func_doc', '[0]'
+     4    243   1   103528   5   1168984  57 "['__doc__']"
+     5   1930   9   100584   5   1269568  62 '.co_lnotab'
+     6    502   2    31128   2   1300696  63 '[1]'
+     7    306   1    16272   1   1316968  64 '[2]'
+     8    242   1    12960   1   1329928  65 '[3]'
+     9    184   1     9872   0   1339800  65 '[4]'
+<7323 more rows. Type e.g. '_.more' to view.>
+
+{% endhighlight %}
+
+From this, we can see that the plurality of memory devoted to strings is taken
+up by those referenced by code objects (`types.CodeType` represents
+Python code—accessible from a non-C-defined function through
+`func.func_code`—and contains things like the names of its local variables and
+the actual sequence of opcodes that make it up).
+
+For fun, let's pick a random string.
+
+{% highlight pycon %}
+
+>>> import random
+>>> obj = heap[0].byid[random.randrange(0, heap[0].count)]
+>>> obj
+Set of 1 <str> object. Total size = 176 bytes.
+ Index     Size   %   Cumulative  %   Representation (limited)
+     0      176 100.0       176 100.0 'Define names...not listed.\n'
+
+{% endhighlight %}
+
+Interesting. Since this heap subset contains only one element, we can use
+[`.theone`](http://guppy-pe.sourceforge.net/heapy_UniSet.html#heapykinds.IdentitySetSingleton.theone)
+to get the actual object represented here:
+
+{% highlight pycon %}
+
+>>> obj.theone
+'Define names for all type symbols known in the standard interpreter.\n\nTypes that are part of optional modules (e.g. array) are not listed.\n'
+
+{% endhighlight %}
+
+Looks like the docstring for the
+[`types`](https://docs.python.org/2/library/types.html) module. We can confirm
+by using
+[`.referrers`](http://guppy-pe.sourceforge.net/heapy_UniSet.html#heapykinds.IdentitySet.referrers)
+to get the set of objects that refer to objects in the given set:
+
+{% highlight pycon %}
+
+>>> obj.referrers
+Partition of a set of 1 object. Total size = 3352 bytes.
+ Index  Count   %     Size   % Cumulative  % Kind (class / dict of class)
+     0      1 100     3352 100      3352 100 dict of module
+
+{% endhighlight %}
+
+This is `types.__dict__` (since the docstring we got is actually stored as
+`types.__dict__["__doc__"]`), so if we use `.referrers` again:
+
+{% highlight pycon %}
+
+>>> obj.referrers.referrers
+Partition of a set of 1 object. Total size = 56 bytes.
+ Index  Count   %     Size   % Cumulative  % Kind (class / dict of class)
+     0      1 100       56 100        56 100 module
+>>> obj.referrers.referrers.theone
+<module 'types' from '/usr/local/Cellar/python/2.7.8_2/Frameworks/Python.framework/Versions/2.7/lib/python2.7/types.pyc'>
+>>> import types
+>>> types.__doc__ is obj.theone
+True
+
+{% endhighlight %}
+
+_But why did we find an object in the `types` module if we never imported it?_
+Well, let's see. We can use
+[`hp.iso()`](http://guppy-pe.sourceforge.net/heapy_Use.html#heapykinds.Use.iso)
+to get the Heapy set consisting of a single given object:
+
+{% highlight pycon %}
+
+>>> hp.iso(types)
+Partition of a set of 1 object. Total size = 56 bytes.
+ Index  Count   %     Size   % Cumulative  % Kind (class / dict of class)
+     0      1 100       56 100        56 100 module
+
+{% endhighlight %}
+
+Using a similar procedure as before, we see that `types` is imported by the
+[`traceback`](https://docs.python.org/2/library/traceback.html) module:
+
+{% highlight pycon %}
+
+>>> hp.iso(types).referrers
+Partition of a set of 10 objects. Total size = 25632 bytes.
+ Index  Count   %     Size   % Cumulative  % Kind (class / dict of class)
+     0      2  20    13616  53     13616  53 dict (no owner)
+     1      5  50     9848  38     23464  92 dict of module
+     2      1  10     1048   4     24512  96 dict of guppy.etc.Glue.Interface
+     3      1  10     1048   4     25560 100 dict of guppy.etc.Glue.Share
+     4      1  10       72   0     25632 100 tuple
+>>> hp.iso(types).referrers[1].byid
+Set of 5 <dict of module> objects. Total size = 9848 bytes.
+ Index     Size   %   Cumulative  %   Owner Name
+     0     3352  34.0      3352  34.0 traceback
+     1     3352  34.0      6704  68.1 warnings
+     2     1048  10.6      7752  78.7 __main__
+     3     1048  10.6      8800  89.4 abc
+     4     1048  10.6      9848 100.0 guppy.etc.Glue
+
+{% endhighlight %}
+
+...and that is imported by
+[`site`](https://docs.python.org/2/library/site.html):
+
+{% highlight pycon %}
+
+>>> import traceback
+>>> hp.iso(traceback).referrers
+Partition of a set of 3 objects. Total size = 15992 bytes.
+ Index  Count   %     Size   % Cumulative  % Kind (class / dict of class)
+     0      1  33    12568  79     12568  79 dict (no owner)
+     1      1  33     3352  21     15920 100 dict of module
+     2      1  33       72   0     15992 100 tuple
+>>> hp.iso(traceback).referrers[1].byid
+Set of 1 <dict of module> object. Total size = 3352 bytes.
+ Index     Size   %   Cumulative  %   Owner Name
+     0     3352 100.0      3352 100.0 site
+
+{% endhighlight %}
+
+Since `site` is imported by Python on startup, we've figured out why objects
+from `types` exist, even though we've never used them.
+
+We've learned something important, too. When objects are stored as ordinary
+attributes of a parent object (like `types.__doc__`, `traceback.types`, and
+`site.traceback` from above), they are not referenced directly by the parent
+object, but by that object's `__dict__` attribute. Therefore, if we want to
+replace `A` with `B` and `A` is an attribute of `C`, we (probably) don't need
+to know anything special about `C`—just how to modify dictionaries.
+
+A good Guppy/Heapy tutorial, while a bit old and incomplete, can be found on
+[Andrey Smirnov's website](http://smira.ru/wp-content/uploads/2011/08/heapy.html).
 
 ## Handling different reference types
+
+[...]
 
 ### Dictionaries
 
@@ -260,7 +498,7 @@ Remaining areas to explore include behavior when metaclasses and more complex
 descriptors are involved. Implementing a more complete version of `replace()`
 is left as an exercise for the reader.
 
-## Notes
+## Footnotes
 
 1. <a id="fn1" href="#ref1">^</a> This post relies _heavily_ on implementation
    details of CPython 2.7. While it could be adapted for Python 3 by examining
@@ -274,3 +512,7 @@ is left as an exercise for the reader.
    [DOT files](https://en.wikipedia.org/wiki/DOT_(graph_description_language))
    used to generate graphs in this post are
    [available on Gist](https://gist.github.com/earwig/edc13f04f871c110eea6).
+
+3. <a id="fn3" href="#ref3">^</a> They're actually grouped together by _clodo_
+   ("class or dict object"), which is similar to type, but groups `__dict__`s
+   separately by their owner's type.
