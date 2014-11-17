@@ -460,7 +460,7 @@ b = B()
 
 Suppose we want to replace `a` with `b`. From the demo above, we know that we
 can get the Heapy set of a single object using `hp.iso()`. We also know we can
-use `.referrers` to get a set of objects that reference the given object:
+use `.referrers` to get the set of objects that reference the given object:
 
 {% highlight pycon %}
 
@@ -526,8 +526,8 @@ documentation on the subject):
 {% endhighlight %}
 
 We notice that `relation` is a `Based_R_INDEXVAL` object. Sounds bizarre, but
-this tells us that `path.src` is related to `a` by being a particular index
-value of it. What index? We can get this using `relation.r`:
+this tells us that `a` is a particular indexed value of `path.src`. What index?
+We can get this using `relation.r`:
 
 {% highlight pycon %}
 
@@ -537,8 +537,8 @@ a
 
 {% endhighlight %}
 
-Ah ha! So now we know that `a` is equal to the reference source indexed by
-`rel`. But what is the reference source? It's just `path.src.theone`:
+Ah ha! So now we know that `a` is equal to the reference source (i.e.,
+`path.src.theone`) indexed by `rel`:
 
 {% highlight pycon %}
 
@@ -548,7 +548,7 @@ True
 {% endhighlight %}
 
 But `path.src.theone` is just a dictionary, meaning we know how to modify it
-very easily:
+very easily:<sup><a id="ref4" href="#fn4">[4]</a></sup>
 
 {% highlight pycon %}
 
@@ -560,12 +560,19 @@ True
 
 {% endhighlight %}
 
-Python's documentation tells us not to modify the locals dictionary, but screw
-it, we're gonna do it anyway.
+Bingo. We've successfully replaced `a` with `b`, using a general method that
+should work for any case where `a` is in a dictionary-like object.
 
 ## Handling different reference types
 
-[...]
+We'll continue by wrapping this code up in a nice function:
+
+{% highlight python %}
+
+def replace(old, new):
+     pass
+
+{% endhighlight %}
 
 ### Dictionaries
 
@@ -638,3 +645,6 @@ is left as an exercise for the reader.
 3. <a id="fn3" href="#ref3">^</a> They're actually grouped together by _clodo_
    ("class or dict object"), which is similar to type, but groups `__dict__`s
    separately by their owner's type.
+
+4. <a id="fn4" href="#ref4">^</a> Python's documentation tells us not to modify
+   the locals dictionary, but screw that; we're gonna do it anyway.
