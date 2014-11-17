@@ -482,7 +482,7 @@ be [`locals()`](https://docs.python.org/2/library/functions.html#locals):
 >>> hp.iso(a).referrers.theone is locals()
 True
 
-{% highlight pycon %}
+{% endhighlight %}
 
 However, there is a more useful feature available to us:
 [`.pathsin`](http://guppy-pe.sourceforge.net/heapy_UniSet.html#heapykinds.IdentitySet.pathsin).
