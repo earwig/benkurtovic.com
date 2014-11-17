@@ -180,7 +180,7 @@ A more correct solution is finding all of the _references_ to the old object,
 and then updating them to point to the new object, rather than replacing the
 old object directly.
 
-But how do we track references? Fortunately, there is a library called
+But how do we track references? Fortunately, there's a library called
 [Guppy](http://guppy-pe.sourceforge.net/) that allows us to do this. Often used
 for diagnosing memory leaks, we can take advantage of its robust object
 tracking features here. Install it with [pip](https://pypi.python.org/pypi/pip)
@@ -250,7 +250,7 @@ Partition of a set of 22606 objects. Total size = 2049896 bytes.
 {% endhighlight %}
 
 This isn't very useful, though. What we really want to do is re-partition this
-subset by another relationship. There are a number of options:
+subset using another relationship. There are a number of options, such as:
 
 {% highlight pycon %}
 
@@ -440,6 +440,128 @@ to know anything special about `C`—just how to modify dictionaries.
 
 A good Guppy/Heapy tutorial, while a bit old and incomplete, can be found on
 [Andrey Smirnov's website](http://smira.ru/wp-content/uploads/2011/08/heapy.html).
+
+## Examining paths
+
+Let's set up an example replacement using class instances:
+
+{% highlight python %}
+
+class A(object):
+    pass
+
+class B(object):
+    pass
+
+a = A()
+b = B()
+
+{% endhighlight %}
+
+Suppose we want to replace `a` with `b`. From the demo above, we know that we
+can get the Heapy set of a single object using `hp.iso()`. We also know we can
+use `.referrers` to get a set of objects that reference the given object:
+
+{% highlight pycon %}
+
+>>> import guppy
+>>> hp = guppy.hpy()
+>>> print hp.iso(a).referrers
+Partition of a set of 1 object. Total size = 1048 bytes.
+ Index  Count   %     Size   % Cumulative  % Kind (class / dict of class)
+     0      1 100     1048 100      1048 100 dict of module
+
+{% endhighlight %}
+
+`a` is only referenced by one object, which makes sense, since we've only used
+it in one place—as a local variable—meaning `hp.iso(a).referrers.theone` must
+be [`locals()`](https://docs.python.org/2/library/functions.html#locals):
+
+{% highlight pycon %}
+
+>>> hp.iso(a).referrers.theone is locals()
+True
+
+{% highlight pycon %}
+
+However, there is a more useful feature available to us:
+[`.pathsin`](http://guppy-pe.sourceforge.net/heapy_UniSet.html#heapykinds.IdentitySet.pathsin).
+This also returns references to the given object, but instead of a Heapy set,
+it is a list of `Path` objects. These are more useful since they tell us not
+only _what_ objects are related to the given object, but _how_ they are
+related.
+
+{% highlight pycon %}
+
+>>> print hp.iso(a).pathsin
+ 0: Src['a']
+
+{% endhighlight %}
+
+This looks very ambiguous. However, we find that we can extract the source of
+the reference using `.src`:
+
+{% highlight pycon %}
+
+>>> path = hp.iso(a).pathsin[0]
+>>> print path.src
+Partition of a set of 1 object. Total size = 1048 bytes.
+ Index  Count   %     Size   % Cumulative  % Kind (class / dict of class)
+     0      1 100     1048 100      1048 100 dict of module
+>>> path.src.theone is locals()
+True
+
+{% endhighlight %}
+
+...and, we can examine the type of relation by looking at `.path[1]` (the
+actual reason for this isn't worth getting into, due to Guppy's lack of
+documentation on the subject):
+
+{% highlight pycon %}
+
+>>> relation = path.path[1]
+>>> relation
+<guppy.heapy.Path.Based_R_INDEXVAL object at 0x100f38230>
+
+{% endhighlight %}
+
+We notice that `relation` is a `Based_R_INDEXVAL` object. Sounds bizarre, but
+this tells us that `path.src` is related to `a` by being a particular index
+value of it. What index? We can get this using `relation.r`:
+
+{% highlight pycon %}
+
+>>> rel = relation.r
+>>> print rel
+a
+
+{% endhighlight %}
+
+Ah ha! So now we know that `a` is equal to the reference source indexed by
+`rel`. But what is the reference source? It's just `path.src.theone`:
+
+{% highlight pycon %}
+
+>>> path.src.theone[rel] is a
+True
+
+{% endhighlight %}
+
+But `path.src.theone` is just a dictionary, meaning we know how to modify it
+very easily:
+
+{% highlight pycon %}
+
+>>> path.src.theone[rel] = b
+>>> a
+<__main__.B object at 0x100dae090>
+>>> a is b
+True
+
+{% endhighlight %}
+
+Python's documentation tells us not to modify the locals dictionary, but screw
+it, we're gonna do it anyway.
 
 ## Handling different reference types
 
