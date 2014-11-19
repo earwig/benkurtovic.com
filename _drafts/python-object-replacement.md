@@ -667,8 +667,77 @@ As a result:
 
 ### Bound methods
 
-note that built-in methods and regular methods have different underlying C
-structs, but have the same offsets for their self field
+Here's a fun one. Let's upgrade our definitions of `A` and `B`:
+
+{% highlight python %}
+
+class A(object):
+    def func(self):
+        return self
+
+class B(object):
+    pass
+
+{% endhighlight %}
+
+After replacing `a` with `b`, `a.func` no longer exists, as we'd expect:
+
+{% highlight pycon %}
+
+>>> a, b = A(), B()
+>>> a.func()
+<__main__.A object at 0x10c4a5b10>
+>>> replace(a, b)
+>>> a.func()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'B' object has no attribute 'func'
+
+{% endhighlight %}
+
+But what if we save a reference to `a.func` before the replacement?
+
+{% highlight pycon %}
+
+>>> a, b = A(), B()
+>>> f = a.func
+>>> replace(a, b)
+>>> f()
+<__main__.A object at 0x10c4b6090>
+
+{% endhighlight %}
+
+Hmm. So `f` has kept a reference to `a` somehow, but not in a dictionary-like
+object. So where is it?
+
+Well, we can reveal it with the attribute `f.__self__`:
+
+{% highlight pycon %}
+
+>>> f.__self__
+<__main__.A object at 0x10c4b6090>
+
+{% endhighlight %}
+
+Unfortunately, this attribute is magical and we can't write to it directly:
+
+{% highlight pycon %}
+
+>>> f.__self__ = b
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: readonly attribute
+
+{% endhighlight %}
+
+Python clearly doesn't want us to re-bind bound methods, and a reasonable
+person would give up here, but we still have a few tricks up our sleeve. Let's
+examine the internal C structure of bound methods,
+[`PyMethodObject`](https://github.com/python/cpython/blob/2.7/Include/classobject.h#L31).
+
+[...]
+
+[`PyCFunctionObject`](https://github.com/python/cpython/blob/2.7/Include/methodobject.h#L81)
 
 ### Closure cells
 
