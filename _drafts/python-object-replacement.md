@@ -565,26 +565,105 @@ should work for any case where `a` is in a dictionary-like object.
 
 ## Handling different reference types
 
-We'll continue by wrapping this code up in a nice function:
+We'll continue by wrapping this code up in a nice function, which we will
+expand as we go:
 
 {% highlight python %}
 
+import guppy
+from guppy.heapy import Path
+
+hp = guppy.hpy()
+
 def replace(old, new):
-     pass
+    for path in hp.iso(old).pathsin:
+        relation = path.path[1]
+        if isinstance(relation, Path.R_INDEXVAL):
+            path.src.theone[relation.r] = new
 
 {% endhighlight %}
 
-### Dictionaries
+### Dictionaries, lists, and tuples
 
-dicts, class attributes via `__dict__`, locals()
+As noted above, this is versatile to handle many dictionary-like situations,
+including `__dict__`, which means we already know how to replace object
+attributes:
 
-### Lists
+{% highlight pycon %}
 
-simple replacement
+>>> a, b = A(), B()
+>>>
+>>> class X(object):
+...     pass
+...
+>>> X.cattr = a
+>>> x = X()
+>>> x.iattr = a
+>>> d1 = {1: a}
+>>> d2 = [{1: {0: ("foo", "bar", {"a": a, "b": b})}}]
+>>>
+>>> replace(a, b)
+>>>
+>>> print a
+<__main__.B object at 0x1042b9910>
+>>> print X.cattr
+<__main__.B object at 0x1042b9910>
+>>> print x.iattr
+<__main__.B object at 0x1042b9910>
+>>> print d1[1]
+<__main__.B object at 0x1042b9910>
+>>> print d2[0][1][0][2]["a"]
+<__main__.B object at 0x1042b9910>
 
-### Tuples
+{% endhighlight %}
 
-recursively replace parent since immutable
+Lists can be handled exactly the same as dictionaries, although the keys in
+this case (i.e., `relation.r`) will always be integers.
+
+{% highlight pycon %}
+
+>>> a, b = A(), B()
+>>> L = [0, 1, 2, a, b]
+>>> print L
+[0, 1, 2, <__main__.A object at 0x104598950>, <__main__.B object at 0x104598910>]
+>>> replace(a, b)
+>>> print L
+[0, 1, 2, <__main__.B object at 0x104598910>, <__main__.B object at 0x104598910>]
+
+{% endhighlight %}
+
+Tuples are interesting. We can't modify them directly because they're
+immutable, but we _can_ create a new tuple with the new value, and then replace
+that tuple just like we replaced our original object:
+
+{% highlight python %}
+
+        # Meanwhile, in replace()...
+        if isinstance(relation, Path.R_INDEXVAL):
+            source = path.src.theone
+            if isinstance(source, tuple):
+                temp = list(source)
+                temp[relation.r] = new
+                replace(source, tuple(temp))
+            else:
+                source[relation.r] = new
+
+{% endhighlight %}
+
+As a result:
+
+{% highlight pycon %}
+
+>>> a, b = A(), B()
+>>> t1 = (0, 1, 2, a)
+>>> t2 = (0, (1, (2, (3, (4, (5, (a,)))))))
+>>> replace(a, b)
+>>> print t1
+(0, 1, 2, <__main__.B object at 0x104598e50>)
+>>> print t2
+(0, (1, (2, (3, (4, (5, (<__main__.B object at 0x104598e50>,)))))))
+
+{% endhighlight %}
 
 ### Bound methods
 
