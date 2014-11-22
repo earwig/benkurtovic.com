@@ -737,13 +737,48 @@ examine the internal C structure of bound methods,
 
 <svg width="559pt" height="200pt" viewBox="0.00 18.00 559.03 200.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 226)"><title>%3</title><polygon fill="white" stroke="none" points="-4,4 -4,-226 555.032,-226 555.032,4 -4,4"/><g id="clust2" class="cluster"><title>cluster</title><polygon fill="none" stroke="black" stroke-width="0" points="8,-8 8,-214 272,-214 272,-8 8,-8"/><text text-anchor="middle" x="140" y="-14.8" font-family="Courier,monospace" font-size="14.00">PyMethodObject</text></g><g id="node1" class="node"><title>obj</title><polygon fill="none" stroke="black" stroke-width="0.5" points="551.048,-110 336.984,-110 336.984,-74 551.048,-74 551.048,-110"/><text text-anchor="middle" x="444.016" y="-89" font-family="Courier,monospace" font-size="10.00">&lt;__main__.A object at 0xdeadbeef&gt;</text></g><g id="node2" class="node"><title>struct</title><polygon fill="#eeeeee" stroke="none" points="24,-182 24,-202 256,-202 256,-182 24,-182"/><polygon fill="none" stroke="black" stroke-width="0.5" points="24,-182 24,-202 256,-202 256,-182 24,-182"/><text text-anchor="start" x="27" y="-188.8" font-family="Courier,monospace" font-size="14.00" fill="#888888">struct _object* </text><text text-anchor="start" x="161.422" y="-188.8" font-family="Courier,monospace" font-style="oblique" font-size="14.00" fill="#666666">_ob_next</text><polygon fill="#eeeeee" stroke="none" points="24,-162 24,-182 256,-182 256,-162 24,-162"/><polygon fill="none" stroke="black" stroke-width="0.5" points="24,-162 24,-182 256,-182 256,-162 24,-162"/><text text-anchor="start" x="27" y="-168.8" font-family="Courier,monospace" font-size="14.00" fill="#888888">struct _object* </text><text text-anchor="start" x="161.422" y="-168.8" font-family="Courier,monospace" font-style="oblique" font-size="14.00" fill="#666666">_ob_prev</text><polygon fill="#eeeeee" stroke="none" points="24,-142 24,-162 256,-162 256,-142 24,-142"/><polygon fill="none" stroke="black" stroke-width="0.5" points="24,-142 24,-162 256,-162 256,-142 24,-142"/><text text-anchor="start" x="27" y="-148.8" font-family="Courier,monospace" font-size="14.00" fill="#888888">Py_ssize_t </text><text text-anchor="start" x="119.415" y="-148.8" font-family="Courier,monospace" font-size="14.00">ob_refcnt</text><polygon fill="#eeeeee" stroke="none" points="24,-122 24,-142 256,-142 256,-122 24,-122"/><polygon fill="none" stroke="black" stroke-width="0.5" points="24,-122 24,-142 256,-142 256,-122 24,-122"/><text text-anchor="start" x="26.5815" y="-128.8" font-family="Courier,monospace" font-size="14.00" fill="#888888">struct _typeobject* </text><text text-anchor="start" x="194.609" y="-128.8" font-family="Courier,monospace" font-size="14.00">ob_type</text><polygon fill="none" stroke="black" stroke-width="0.5" points="24,-102 24,-122 256,-122 256,-102 24,-102"/><text text-anchor="start" x="27" y="-108.8" font-family="Courier,monospace" font-size="14.00" fill="#888888">PyObject* </text><text text-anchor="start" x="111.014" y="-108.8" font-family="Courier,monospace" font-size="14.00">im_func</text><polygon fill="none" stroke="black" stroke-width="0.5" points="24,-82 24,-102 256,-102 256,-82 24,-82"/><text text-anchor="start" x="27" y="-88.8" font-family="Courier,monospace" font-size="14.00" fill="#888888">PyObject* </text><text text-anchor="start" x="111.014" y="-88.8" font-family="Courier,monospace" font-size="14.00">im_self</text><polygon fill="none" stroke="black" stroke-width="0.5" points="24,-62 24,-82 256,-82 256,-62 24,-62"/><text text-anchor="start" x="27" y="-68.8" font-family="Courier,monospace" font-size="14.00" fill="#888888">PyObject* </text><text text-anchor="start" x="111.014" y="-68.8" font-family="Courier,monospace" font-size="14.00">im_class</text><polygon fill="none" stroke="black" stroke-width="0.5" points="24,-42 24,-62 256,-62 256,-42 24,-42"/><text text-anchor="start" x="27" y="-48.8" font-family="Courier,monospace" font-size="14.00" fill="#888888">PyObject* </text><text text-anchor="start" x="111.014" y="-48.8" font-family="Courier,monospace" font-size="14.00">im_weakreflist</text></g><g id="edge1" class="edge"><title>struct:f&#45;&gt;obj</title><path fill="none" stroke="black" stroke-width="0.5" d="M257,-92C280.313,-92 305.269,-92 329.087,-92"/><polygon fill="black" stroke="black" stroke-width="0.5" points="329.277,-94.6251 336.777,-92 329.277,-89.3751 329.277,-94.6251"/></g></g></svg>
 
-[`_PyObject_HEAD_EXTRA`](https://github.com/python/cpython/blob/2.7/Include/object.h#L64)
+The four gray fields of the struct come from
+[`PyObject_HEAD`](https://github.com/python/cpython/blob/2.7/Include/object.h#L78),
+which exist in all Python objects. The first two fields are from
+[`_PyObject_HEAD_EXTRA`](https://github.com/python/cpython/blob/2.7/Include/object.h#L66),
+and only exist when the debugging macro `Py_TRACE_REFS` is defined, in order to
+support more advanced reference counting. We can see that the `im_self` field,
+which mantains the reference to our target object, is either forth or sixth in
+the struct depending on `Py_TRACE_REFS`. If we can figure out the size of the
+field and its offset from the start of the struct, then we can set its value
+directly using `ctypes.memmove()`:
+
+{% highlight python %}
+
+ctypes.memmove(id(f) + offset, ctypes.byref(ctypes.py_object(b)), field_size)
+
+{% endhighlight %}
+
+Here, `id(f)` is the memory location of our method, which refers to the start
+of the C struct from above. `offset` is the number of bytes between this memory
+location and the start of the `im_self` field. We use
+[`ctypes.byref()`](https://docs.python.org/2/library/ctypes.html#ctypes.byref)
+to create a reference to the replacement object, `b`, which will be copied over
+the existing reference to `a`. Finally, `field_size` is the number of bytes
+we're copying, equal to the size of the `im_self` field.
+
+Well, all but one of these fields are pointers, meaning they have the same
+size, equal to
+[`ctypes.sizeof(ctypes.c_void_p)`](https://docs.python.org/2/library/ctypes.html#ctypes.sizeof).
+This is (probably) 4 or 8 bytes, depending on whether you're on a 32-bit or a
+64-bit system. The other field is a `Py_ssize_t` object—_very_ likely to be
+the same size as a pointer, but we can't be sure—which is equal to
+`ctypes.sizeof(ctypes.c_ssize_t)`.
 
 [`PyCFunctionObject`](https://github.com/python/cpython/blob/2.7/Include/methodobject.h#L81)
 
+### Dictionary keys
+
+...
+
 ### Closure cells
 
-function closures
+...
 
 ### Frames
 
