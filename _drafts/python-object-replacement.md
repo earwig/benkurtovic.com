@@ -762,12 +762,12 @@ to create a reference to the replacement object, `b`, which will be copied over
 the existing reference to `a`. Finally, `field_size` is the number of bytes
 we're copying, equal to the size of the `im_self` field.
 
-Well, all but one of these fields are pointers, meaning they have the same
-size, equal to
-[`ctypes.sizeof(ctypes.c_void_p)`](https://docs.python.org/2/library/ctypes.html#ctypes.sizeof).
+Well, all but one of these fields are pointers to structure types, meaning they
+have the same size,<sup><a id="ref5" href="#fn5">[5]</a></sup> equal to
+[`ctypes.sizeof(ctypes.py_object)`](https://docs.python.org/2/library/ctypes.html#ctypes.sizeof).
 This is (probably) 4 or 8 bytes, depending on whether you're on a 32-bit or a
-64-bit system. The other field is a `Py_ssize_t` object—_very_ likely to be
-the same size as a pointer, but we can't be sure—which is equal to
+64-bit system. The other field is a `Py_ssize_t` object—possibly the same size
+as the pointers, but we can't be sure—which is equal to
 `ctypes.sizeof(ctypes.c_ssize_t)`.
 
 [`PyCFunctionObject`](https://github.com/python/cpython/blob/2.7/Include/methodobject.h#L81)
@@ -833,3 +833,10 @@ is left as an exercise for the reader.
 
 4. <a id="fn4" href="#ref4">^</a> Python's documentation tells us not to modify
    the locals dictionary, but screw that; we're gonna do it anyway.
+
+5. <a id="fn5" href="#ref5">^</a> According to the
+   [C99](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n1256.pdf) and
+   [C11 standards](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n1570.pdf);
+   section 6.2.5.27 in the former and 6.2.5.28 in the latter: "All pointers to
+   structure types shall have the same representation and alignment
+   requirements as each other."
