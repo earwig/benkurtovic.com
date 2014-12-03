@@ -770,6 +770,33 @@ This is (probably) 4 or 8 bytes, depending on whether you're on a 32-bit or a
 as the pointers, but we can't be sure—which is equal to
 `ctypes.sizeof(ctypes.c_ssize_t)`.
 
+We know that `field_size` must be `ctypes.sizeof(ctypes.py_object)`, since we
+are copying a structure pointer. `offset` is this value multiplied by the
+number of structure pointers before `im_self` (4 if `Py_TRACE_REFS` is defined
+and 2 otherwise), plus `ctypes.sizeof(ctypes.c_ssize_t)` for `ob_type`. But how
+do we determine if `Py_TRACE_REFS` is defined? We can't check the value of a
+macro at runtime, but we can check for the existence of
+[`sys.getobjects()`](https://github.com/python/cpython/blob/2.7/Misc/SpecialBuilds.txt#L54),
+which is
+[only defined when that macro is](https://github.com/python/cpython/blob/2.7/Python/sysmodule.c#L951).
+Therefore, we can make our replacement like so:
+
+{% highlight pycon %}
+
+>>> import ctypes
+>>> import sys
+>>> field_size = ctypes.sizeof(ctypes.py_object)
+>>> ptrs_in_struct = 4 if hasattr(sys, "getobjects") else 2
+>>> offset = ptrs_in_struct * field_size + ctypes.sizeof(ctypes.c_ssize_t)
+>>> ctypes.memmove(id(f) + offset, ctypes.byref(ctypes.py_object(b)), field_size)
+4470258440
+>>> f()
+<__main__.B object at 0x10a8af290>
+
+{% endhighlight %}
+
+Excellent—it worked!
+
 [`PyCFunctionObject`](https://github.com/python/cpython/blob/2.7/Include/methodobject.h#L81)
 
 ### Dictionary keys
