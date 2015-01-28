@@ -22,7 +22,7 @@ on.
 _But why on Earth would you want to do that?_ you ask. I'll focus on a concrete
 use case in a future post, but for now, I imagine this could be useful in some
 kind of advanted unit testing situation with mock objects. Still, it's fairly
-insane, so let's leave it as primarily an intellectual exercise.
+insane, so let's leave it primarily as an intellectual exercise.
 
 This article is written for [CPython](https://en.wikipedia.org/wiki/CPython)
 2.7.<sup><a id="ref1" href="#fn1">[1]</a></sup>
@@ -77,13 +77,12 @@ d = wrapper(a)
 <svg width="254pt" height="234pt" viewBox="0.00 0.00 253.96 234.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 238)"><polygon fill="white" stroke="none" points="-4,4 -4,-238 249.96,-238 249.96,4 -4,4"/><g id="clust3" class="cluster"><title>cluster0</title><polygon fill="none" stroke="black" stroke-width="0.5" points="8,-8 8,-82 78,-82 78,-8 8,-8"/><text text-anchor="middle" x="43" y="-66.8" font-family="Courier,monospace" font-size="14.00">d</text></g><g id="node1" class="node"><title>obj</title><polygon fill="none" stroke="black" stroke-width="0.5" points="245.966,-153 157.943,-153 157.943,-117 245.966,-117 245.966,-153"/><text text-anchor="middle" x="201.954" y="-132" font-family="Courier,monospace" font-size="10.00">[1, 2, 3, 4]</text></g><g id="node2" class="node"><title>a</title><ellipse fill="none" stroke="black" stroke-width="0.5" cx="43" cy="-216" rx="27" ry="18"/><text text-anchor="middle" x="43" y="-211.8" font-family="Courier,monospace" font-size="14.00">a</text></g><g id="edge1" class="edge"><title>a&#45;&gt;obj</title><path fill="none" stroke="black" stroke-width="0.5" d="M64.8423,-205.244C88.7975,-192.881 128.721,-172.278 159.152,-156.573"/><polygon fill="black" stroke="black" stroke-width="0.5" points="160.422,-158.872 165.883,-153.1 158.014,-154.206 160.422,-158.872"/></g><g id="node3" class="node"><title>b</title><ellipse fill="none" stroke="black" stroke-width="0.5" cx="43" cy="-162" rx="27" ry="18"/><text text-anchor="middle" x="43" y="-157.8" font-family="Courier,monospace" font-size="14.00">b</text></g><g id="edge2" class="edge"><title>b&#45;&gt;obj</title><path fill="none" stroke="black" stroke-width="0.5" d="M69.2174,-157.662C90.9996,-153.915 123.147,-148.385 150.231,-143.726"/><polygon fill="black" stroke="black" stroke-width="0.5" points="150.777,-146.295 157.724,-142.437 149.887,-141.121 150.777,-146.295"/></g><g id="node4" class="node"><title>c</title><ellipse fill="none" stroke="black" stroke-width="0.5" cx="43" cy="-108" rx="41.897" ry="18"/><text text-anchor="middle" x="43" y="-103.8" font-family="Courier,monospace" font-size="14.00">c.data</text></g><g id="edge3" class="edge"><title>c&#45;&gt;obj</title><path fill="none" stroke="black" stroke-width="0.5" d="M82.3954,-114.605C102.772,-118.11 128.077,-122.463 150.069,-126.247"/><polygon fill="black" stroke="black" stroke-width="0.5" points="149.86,-128.874 157.697,-127.559 150.75,-123.7 149.86,-128.874"/></g><g id="node5" class="node"><title>L</title><ellipse fill="none" stroke="black" stroke-width="0.5" cx="43" cy="-34" rx="27" ry="18"/><text text-anchor="middle" x="43" y="-29.8" font-family="Courier,monospace" font-size="14.00">L</text></g><g id="edge4" class="edge"><title>L&#45;&gt;obj</title><path fill="none" stroke="black" stroke-width="0.5" d="M62.9324,-46.183C88.5083,-62.6411 134.554,-92.2712 166.386,-112.755"/><polygon fill="black" stroke="black" stroke-width="0.5" points="165.223,-115.128 172.951,-116.98 168.064,-110.714 165.223,-115.128"/></g></g></svg>
 
 Note that these references are all equal. `a` is no more valid a name for the
-list than `b`, `c.data`, or `L` (from the perspective of `d`, which is exposed
-to everyone else as `d.func_closure[0].cell_contents`, but that's cumbersome
-and you would never do that in practice). As a result, if you delete one of
-these references—explicitly with `del a`, or implicitly if a name goes out of
-scope—then the other references are still around, and object continues to
-exist. If all of an object's references disappear, then Python's garbage
-collector should eliminate it.
+list than `b`, `c.data`, or `L` (or `d.func_closure[0].cell_contents` to the
+outside world). As a result, if you delete one of these references—explicitly
+with `del a`, or implicitly if a name goes out of scope—then the other
+references are still around, and object continues to exist. If all of an
+object's references disappear, then Python's garbage collector should eliminate
+it.
 
 ## Dead ends
 
@@ -176,9 +175,9 @@ Segmentation fault: 11
 
 ## Fishing for references with Guppy
 
-A more correct solution is finding all of the _references_ to the old object,
-and then updating them to point to the new object, rather than replacing the
-old object directly.
+A more appropriate solution is finding all of the _references_ to the old
+object, and then updating them to point to the new object, rather than
+replacing the old object directly.
 
 But how do we track references? Fortunately, there's a library called
 [Guppy](http://guppy-pe.sourceforge.net/) that allows us to do this. Often used
@@ -194,7 +193,7 @@ delving into the actual problem.
 
 Guppy's interface is deceptively simple. We begin by calling
 [`guppy.hpy()`](http://guppy-pe.sourceforge.net/guppy.html#kindnames.guppy.hpy),
-to expose the Heapy interface, which is the component of Guppy that has the
+to expose the Heapy interface, which is the component of Guppy with the
 features we want:
 
 {% highlight pycon %}
@@ -836,31 +835,131 @@ True
 
 ### Dictionary keys
 
-...
+Dictionary keys have a different reference relation type than values, but the
+replacement works mostly the same way. We pop the value of the old key from the
+dictionary, and then insert it in again under the new key. Here's the code,
+which we'll stick into the main block in `replace()`:
+
+{% highlight python %}
+
+elif isinstance(relation, Path.R_INDEXKEY):
+    source = path.src.theone
+    source[new] = source.pop(source.keys()[relation.r])
+
+{% endhighlight %}
+
+And, a demonstration:
+
+{% highlight pycon %}
+
+>>> a, b = A(), B()
+>>> d = {a: 1}
+>>> replace(a, b)
+>>> d
+{<__main__.B object at 0x10fb47950>: 1}
+
+{% endhighlight %}
 
 ### Closure cells
 
-...
+We'll cover just one more case, this time involving a
+[closure](https://en.wikipedia.org/wiki/Closure_(computer_programming)). Here's
+our test function:
 
-### Frames
+{% highlight python %}
 
-...
+def wrapper(obj):
+    def inner():
+        return obj
+    return inner
 
-### Slots
+{% endhighlight %}
 
-...
+As we can see, an instance of the inner function keeps references to the locals
+of the wrapper function, even after using our current
+version of `replace()`:
 
-### Classes
+{% highlight pycon %}
 
-...
+>>> a, b = A(), B()
+>>> f = wrapper(a)
+>>> f()
+<__main__.A object at 0x109446090>
+>>> replace(a, b)
+>>> f()
+<__main__.A object at 0x109446090>
+
+{% endhighlight %}
+
+Internally, CPython implements this using things called
+[_cells_](https://docs.python.org/2/c-api/cell.html). We notice that
+`f.func_closure` gives us a tuple of `cell` objects, and we can examine an
+individual cell's contents with `.cell_contents`:
+
+{% highlight pycon %}
+
+>>> f.func_closure
+(<cell at 0x10ad9f478: instance object at 0x109446090>,)
+>>> f.func_closure[0].cell_contents
+<__main__.A object at 0x109446090>
+
+{% endhighlight %}
+
+As expected, we can't just modify it...
+
+{% highlight pycon %}
+
+>>> f.func_closure[0].cell_contents = b
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: attribute 'cell_contents' of 'cell' objects is not writable
+
+{% endhighlight %}
+
+...because that would be too easy. So, how can we replace it? Well, we could
+go back to `memmove`, but there's an easier way thanks to the `ctypes` module
+also exposing Python's C API. Specifically, the
+[`PyCell_Set`](https://docs.python.org/2/c-api/cell.html#c.PyCell_Set) function
+(which seems to lack a pure Python equivalent) does exactly what we want. Since
+the function expects `PyObject*`s as arguments, we'll need to use
+`ctypes.py_object` as a wrapper. Here it is:
+
+{% highlight pycon %}
+
+>>> from ctypes import py_object, pythonapi
+>>> pythonapi.PyCell_Set(py_object(f.func_closure[0]), py_object(b))
+0
+>>> f()
+<__main__.B object at 0x10ad94dd0>
+
+{% endhighlight %}
+
+Perfect – the replacement worked. To tie it together with `replace()`, we'll
+note that Guppy represents the cell contents relationship with
+`Based_R_INTERATTR`, for what I assume to be "internal attribute". We can use
+this to find the cell object within the inner function that references our
+target object, and then use the method above to make the change:
+
+{% highlight python %}
+
+elif isinstance(relation, Path.R_INTERATTR):
+    if isinstance(source, CellType):
+        pythonapi.PyCell_Set(py_object(source), py_object(new))
+        return
+
+{% endhighlight %}
 
 ### Other cases
 
-Certainly, not every case is handled above, but it seems to cover the vast
-majority of instances that I've found through testing. There are a number of
-reference relations in Guppy that I couldn't figure out how to replicate
-without doing something insane (`R_HASATTR`, `R_CELL`, and `R_STACK`), so some
-obscure replacements are likely unimplemented.
+There are many, many more types of possible replacements. I've written a more
+extensible version of `replace()` with some test cases, which can be viewed
+on Gist [here](https://gist.github.com/earwig/28a64ffb94d51a608e3d).
+
+Certainly, not every case is handled by it, but it seems to cover the majority
+that I've found through testing. There are a number of reference relations in
+Guppy that I couldn't figure out how to replicate without doing something
+insane (`R_HASATTR`, `R_CELL`, and `R_STACK`), so some obscure replacements are
+likely unimplemented.
 
 Some other kinds of replacements are known, but impossible. For example,
 replacing a class object that uses `__slots__` with another class will not work
@@ -869,10 +968,6 @@ class exist. More generally, replacing a class with a non-class object won't
 work if instances of the class exist. Furthermore, references stored in data
 structures managed by C extensions cannot be changed, since there's no good way
 for us to track these.
-
-Remaining areas to explore include behavior when metaclasses and more complex
-descriptors are involved. Implementing a more complete version of `replace()`
-is left as an exercise for the reader.
 
 ## Footnotes
 
