@@ -3,7 +3,6 @@ layout: post
 title: Finding and Replacing Objects in Python
 tags: Python
 description: More reflection than you cared to ask for
-draft: true
 ---
 
 Today, we're going to demonstrate a fairly evil thing in Python, which I call
