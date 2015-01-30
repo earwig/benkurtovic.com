@@ -20,7 +20,7 @@ on.
 
 _But why on Earth would you want to do that?_ you ask. I'll focus on a concrete
 use case in a future post, but for now, I imagine this could be useful in some
-kind of advanted unit testing situation with mock objects. Still, it's fairly
+kind of advanced unit testing situation with mock objects. Still, it's fairly
 insane, so let's leave it primarily as an intellectual exercise.
 
 This article is written for [CPython](https://en.wikipedia.org/wiki/CPython)
