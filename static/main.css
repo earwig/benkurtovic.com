@@ -45,7 +45,7 @@ a.underlined:hover, a.underlined:active { text-decoration: none; }
 #container {
     margin: 1.5em auto 0;
     max-width: 1000px;
-    padding: 0 40px 0 40px;
+    padding: 0 5%;
 }
 
 #container p {
