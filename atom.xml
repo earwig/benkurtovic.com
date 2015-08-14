@@ -1,0 +1,33 @@
+---
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>{{ site.url }}</id>
+    <title>Ben Kurtovic</title>
+    <updated>{{ site.time | date_to_xmlschema }}</updated>
+    <link href="{{ site.url }}/"/>
+    <link rel="self" type="application/atom+xml" href="/atom.xml"/>
+    <author>
+        <name>Ben Kurtovic</name>
+        <email>ben.kurtovic@gmail.com</email>
+        <uri>https://benkurtovic.com/</uri>
+    </author>
+    <icon>/static/favicon.png</icon>
+    <rights>© 2011–{{ site.time | date: "%Y" }} Ben Kurtovic</rights>
+    {% for post in site.posts %}
+        <entry>
+            <id>{{ site.url }}{{ post.id }}</id>
+            <title>{{ post.title | xml_escape }}</title>
+            <updated>{{ post.date | date_to_xmlschema }}</updated>
+            <published>{{ post.date | date_to_xmlschema }}</published>
+            <link rel="alternate" type="text/html" href="{{ post.url }}"/>
+            <author>
+                <name>Ben Kurtovic</name>
+                <email>ben.kurtovic@gmail.com</email>
+                <uri>https://benkurtovic.com/</uri>
+            </author>
+            <summary>{{ post.description }}</summary>
+            <content type="html">{{ post.content | xml_escape }}</content>
+        </entry>
+    {% endfor %}
+</feed>
