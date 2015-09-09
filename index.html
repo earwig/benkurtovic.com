@@ -14,12 +14,22 @@ projects:
         - name:        bitshift
           langs:       Python + SQL + Web
           started:     March 2014
-          description: <a href="http://bitshift.it/">A semantic search engine</a> for source code
+          description: A <a href="http://bitshift.it/">semantic search engine</a> for source code
         - name:        copyvios
           langs:       Python + Web
           started:     July 2009
-          description: <a href="//tools.wmflabs.org/copyvios">A copyright violation detector</a> for Wikipedia articles running on <a href="//tools.wmflabs.org/">Wikimedia Labs</a>
+          description: A <a href="//tools.wmflabs.org/copyvios">copyright violation detector</a> for Wikipedia articles running on <a href="//tools.wmflabs.org/">Wikimedia Labs</a>
+        - name:        crater
+          langs:       C + Assembly
+          started:     March 2015
+          incomplete:  yes
+          description: An emulator for the <a href="https://en.wikipedia.org/wiki/Sega_Game_Gear">Sega Game Gear</a>, with an included <a href="https://en.wikipedia.org/wiki/Zilog_Z80">Z80</a> assembler/disassembler
     others:
+        - name:        tfdclerk
+          langs:       JavaScript
+          started:     August 2015
+          incomplete:  yes
+          description: An English Wikipedia <a href="https://en.wikipedia.org/wiki/Wikipedia:User_scripts">user script</a> to automate common <a href="https://en.wikipedia.org/wiki/Wikipedia:Templates_for_discussion">templates for discussion</a> operations, including closures and relisting
         - name:        oriadnos
           repo:        VjiaoBlack/Oriadnos
           langs:       C
@@ -33,12 +43,12 @@ projects:
           repo:        stuycs-softdev-fall-2013/proj3-6-BAJA
           langs:       Python + Web
           started:     Jan 2014
-          description: <a href="http://softdev-server.stuycs.org:6680/">A hacking game</a> featuring multiple simulated websites, tied together by messages sent to the player from a mysterious individual using a fake email client
+          description: A <a href="http://softdev-server.stuycs.org:6680/">hacking game</a> featuring multiple simulated websites, tied together by messages sent to the player from a mysterious individual using a fake email client
         - name:        omnithinker
           repo:        stuycs-softdev-fall-2013/proj2-pd6-04-omnithinker
           langs:       Python + Web
           started:     Nov 2013
-          description: <a href="http://softdev-server.stuycs.org:6004/">An online brainstorming tool</a> that displays relevant information from the web in a sidebar
+          description: An <a href="http://softdev-server.stuycs.org:6004/">online brainstorming tool</a> that displays relevant information from the web in a sidebar
         - name:        databanks
           repo:        VjiaoBlack/databanks
           langs:       C
@@ -103,7 +113,7 @@ projects:
             <ul class="work-list">
                 {% for project in page.projects["highlights"] %}
                     <li>
-                        <a class="underlined" href="//github.com/{% if project.repo %}{{ project.repo }}{% else %}earwig/{{ project.name }}{% endif %}">{{ project.name }}</a> <span class="subtitle"><i>({{ project.langs }} // started {{ project.started }})</i></span><br />
+                        <a class="underlined" href="//github.com/{% if project.repo %}{{ project.repo }}{% else %}earwig/{{ project.name }}{% endif %}">{{ project.name }}</a> <span class="subtitle"><i>({{ project.langs }} // started {{ project.started }}{% if project.incomplete %}<span class="incomplete"> // in development</span>{% endif %})</i></span><br />
                         <span class="subtitle">{{ project.description }}</span>
                     </li>
                 {% endfor %}
@@ -112,7 +122,7 @@ projects:
             <ul class="work-list">
                 {% for project in page.projects["others"] %}
                     <li>
-                        <a class="underlined" href="//github.com/{% if project.repo %}{{ project.repo }}{% else %}earwig/{{ project.name }}{% endif %}">{{ project.name }}</a> <span class="subtitle"><i>({{ project.langs }} // started {{ project.started }})</i></span><br />
+                        <a class="underlined" href="//github.com/{% if project.repo %}{{ project.repo }}{% else %}earwig/{{ project.name }}{% endif %}">{{ project.name }}</a> <span class="subtitle"><i>({{ project.langs }} // started {{ project.started }}{% if project.incomplete %}<span class="incomplete"> // in development</span>{% endif %})</i></span><br />
                         <span class="subtitle">{{ project.description }}</span>
                     </li>
                 {% endfor %}

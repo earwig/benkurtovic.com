@@ -132,6 +132,10 @@ p#bio {
     font-size: 14px;
 }
 
+.incomplete {
+    color: #777;
+}
+
 #tags {
     line-height: 2em;
     margin: -0.375em 0;
