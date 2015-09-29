@@ -34,10 +34,10 @@ Sources are fetched and then parsed differently depending on the document type
 handled by [pdfminer](http://www.unixuser.org/~euske/python/pdfminer/)), and
 normalized to a plain text form. We then create multiple
 [Markov chains](https://en.wikipedia.org/wiki/Markov_chain) – the *article
-chain* is built from word trigrams from the article text, and a *source chain*
-is built from each source text. A *delta chain* is created for each source
-chain, representing the intersection of it and the article chain by examining
-which nodes are shared.
+chain* is built from word [5-grams](https://en.wikipedia.org/wiki/N-gram) from
+the article text, and a *source chain* is built from each source text. A *delta
+chain* is created for each source chain, representing the intersection of it
+and the article chain by examining which nodes are shared.
 
 But how do we use these chains to decide whether a violation is present?
 
