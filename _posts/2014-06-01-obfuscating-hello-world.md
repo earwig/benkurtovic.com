@@ -351,7 +351,7 @@ Then, into anonymous-recursive form:
 
 {% endhighlight %}
 
-For fun, we'll factor out argcount operation into an additional function
+For fun, we'll factor out the argcount operation into an additional function
 argument, and obfuscate some variable names:
 
 {% highlight python linenos=table %}
