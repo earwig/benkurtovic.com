@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Stack Smashing
-tags: Security
+title: Lecture: Stack Smashing
+tags: Lecture
 description: Slides from a lecture on low-level software exploits and defenses
 ---
 
