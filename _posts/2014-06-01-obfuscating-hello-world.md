@@ -5,6 +5,8 @@ tags: Python
 description: Fun with functional programming in Python
 ---
 
+__Update__ (November 1, 2017): Added [Python 3 support](#addendum-python-3-support).
+
 A few months ago, I got first place in
 [this Code Golf contest](//codegolf.stackexchange.com/q/22533) to create the
 weirdest obfuscated program that prints the string "Hello world!". I decided to
@@ -650,3 +652,71 @@ all the parts together:
 {% endhighlight %}
 
 And there you have it.
+
+## Addendum: Python 3 support
+
+Since writing this post, several people have asked about Python 3 support.
+I didn't think of it at the time, but as Python 3 continues to gain traction
+(and thank you for that!), this post is clearly long overdue for an update.
+
+Fortunately, Python 3 (as of writing, 3.6) doesn't require us to change much:
+
+- The `func_code` function object attribute has been renamed to `__code__`.
+  Easy fix with a find-and-replace.
+- The `tupleiterator` type name has been changed to `tuple_iterator`. Since we
+  use this to extract the substring `"ite"`, we can get around this by changing
+  our indexing in `().__iter__().__class__.__name__` from `[_____:________]` to
+  `[_:][_____:________]`.
+- `os.write()` requires `bytes` now instead of a `str`, so `chr(...)` needs to
+  be changed to `bytes([...])`.
+
+Here is the full Python 3 version:
+
+{% highlight python linenos=table %}
+
+(lambda _, __, ___, ____, _____, ______, _______, ________:
+    getattr(
+        __import__(True.__class__.__name__[_] + [].__class__.__name__[__]),
+        ().__class__.__eq__.__class__.__name__[:__] +
+        ().__iter__().__class__.__name__[_:][_____:________]
+    )(
+        _, (lambda _, __, ___: _(_, __, ___))(
+            lambda _, __, ___:
+                bytes([___ % __]) + _(_, __, ___ // __) if ___ else
+                (lambda: _).__code__.co_lnotab,
+            _ << ________,
+            (((_____ << ____) + _) << ((___ << _____) - ___)) + (((((___ << __)
+            - _) << ___) + _) << ((_____ << ____) + (_ << _))) + (((_______ <<
+            __) - _) << (((((_ << ___) + _)) << ___) + (_ << _))) + (((_______
+            << ___) + _) << ((_ << ______) + _)) + (((_______ << ____) - _) <<
+            ((_______ << ___))) + (((_ << ____) - _) << ((((___ << __) + _) <<
+            __) - _)) - (_______ << ((((___ << __) - _) << __) + _)) + (_______
+            << (((((_ << ___) + _)) << __))) - ((((((_ << ___) + _)) << __) +
+            _) << ((((___ << __) + _) << _))) + (((_______ << __) - _) <<
+            (((((_ << ___) + _)) << _))) + (((___ << ___) + _) << ((_____ <<
+            _))) + (_____ << ______) + (_ << ___)
+        )
+    )
+)(
+    *(lambda _, __, ___: _(_, __, ___))(
+        (lambda _, __, ___:
+            [__(___[(lambda: _).__code__.co_nlocals])] +
+            _(_, __, ___[(lambda _: _).__code__.co_nlocals:]) if ___ else []
+        ),
+        lambda _: _.__code__.co_argcount,
+        (
+            lambda _: _,
+            lambda _, __: _,
+            lambda _, __, ___: _,
+            lambda _, __, ___, ____: _,
+            lambda _, __, ___, ____, _____: _,
+            lambda _, __, ___, ____, _____, ______: _,
+            lambda _, __, ___, ____, _____, ______, _______: _,
+            lambda _, __, ___, ____, _____, ______, _______, ________: _
+        )
+    )
+)
+
+{% endhighlight %}
+
+Thank you for reading! I continue to be amazed by this post's popularity.
