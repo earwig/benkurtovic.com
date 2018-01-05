@@ -40,7 +40,7 @@ projects:
         - name:        tfdclerk
           langs:       JavaScript
           started:     August 2015
-          incomplete:  yes
+          abandoned:   yes
           description: An English Wikipedia <a href="https://en.wikipedia.org/wiki/Wikipedia:User_scripts">user script</a> to automate common <a href="https://en.wikipedia.org/wiki/Wikipedia:Templates_for_discussion">templates for discussion</a> operations, including closures and relisting
         - name:        oriadnos
           repo:        VjiaoBlack/Oriadnos
@@ -125,7 +125,7 @@ projects:
             <ul class="work-list">
                 {% for project in page.projects["highlights"] %}
                     <li>
-                        <a class="underlined" href="//github.com/{% if project.repo %}{{ project.repo }}{% else %}earwig/{{ project.name }}{% endif %}">{{ project.name }}</a> <span class="subtitle"><i>({{ project.langs }} // started {{ project.started }}{% if project.incomplete %}<span class="incomplete"> // in development</span>{% endif %})</i></span><br />
+                        <a class="underlined" href="//github.com/{% if project.repo %}{{ project.repo }}{% else %}earwig/{{ project.name }}{% endif %}">{{ project.name }}</a> <span class="subtitle"><i>({{ project.langs }} // started {{ project.started }}{% if project.incomplete %}<span class="incomplete"> // in development</span>{% endif %}{% if project.abandoned %}<span class="abandoned"> // abandoned</span>{% endif %})</i></span><br />
                         <span class="subtitle">{{ project.description }}</span>
                     </li>
                 {% endfor %}
@@ -134,7 +134,7 @@ projects:
             <ul class="work-list">
                 {% for project in page.projects["others"] %}
                     <li>
-                        <a class="underlined" href="//github.com/{% if project.repo %}{{ project.repo }}{% else %}earwig/{{ project.name }}{% endif %}">{{ project.name }}</a> <span class="subtitle"><i>({{ project.langs }} // started {{ project.started }}{% if project.incomplete %}<span class="incomplete"> // in development</span>{% endif %})</i></span><br />
+                        <a class="underlined" href="//github.com/{% if project.repo %}{{ project.repo }}{% else %}earwig/{{ project.name }}{% endif %}">{{ project.name }}</a> <span class="subtitle"><i>({{ project.langs }} // started {{ project.started }}{% if project.incomplete %}<span class="incomplete"> // in development</span>{% endif %}{% if project.abandoned %}<span class="abandoned"> // abandoned</span>{% endif %})</i></span><br />
                         <span class="subtitle">{{ project.description }}</span>
                     </li>
                 {% endfor %}
