@@ -36,7 +36,7 @@ function load_tag_filters() {
         filter_posts();
     }
 
-    $(".tag").click(function() {
+    $(".tag").on("click", function() {
         var tags = [];
         $(this).toggleClass("tag-selected");
         $(".tag-selected").each(function() {
@@ -51,12 +51,12 @@ function load_tag_filters() {
 }
 
 function load_paragraph_links() {
-    $("#post").find("h1, h2, h3, h4, h5, h6").hover(function() {
+    $("#post").find("h1, h2, h3, h4, h5, h6").on("mouseenter", function() {
         $(this).append($("<a>")
             .attr("href", "#" + this.id)
             .attr("class", "para-link")
             .text("¶"));
-    }, function() {
+    }).on("mouseleave", function() {
         $(this).find(".para-link").remove();
     });
 }

@@ -5,12 +5,12 @@ layout: base
 <h1>{{ page.title }}</h1>
 <div id="content">
     <ul id="post-info">
-        <li><span><i class="fa fa-tag"></i> Tags:</span>
+        <li><span><i class="fa fa-tag" aria-hidden="true"></i> Tags:</span>
             {% for tag in page.tags %}
                 <a href="/#{{ tag }}" class="post-tag">{{ tag }}</a>
             {% endfor %}
-        <li><span><i class="fa fa-clock-o"></i> Date:</span> {{ page.date | date: "%B %-d, %Y" }}</li>
-        <li><span><i class="fa fa-comments"></i></span> <a href="#disqus_thread">Jump to comments</a></li>
+        <li><span><i class="fa fa-clock-o" aria-hidden="true"></i> Date:</span> {{ page.date | date: "%B %-d, %Y" }}</li>
+        <li><span><i class="fa fa-comments" aria-hidden="true"></i></span> <a href="#disqus_thread">Jump to comments</a></li>
     </ul>
     <div id="post">
         {{ content }}
