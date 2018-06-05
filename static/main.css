@@ -246,3 +246,14 @@ pre code {
     font-size: 14px;
     text-align: center;
 }
+
+#comments-break {
+    margin: 1em 0;
+    text-align: center;
+    font-size: 150%;
+    color: #AAA;
+}
+
+#comments-break::before {
+    content: '· · ·';
+}

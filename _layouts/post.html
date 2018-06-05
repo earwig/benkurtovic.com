@@ -16,6 +16,7 @@ layout: base
         {{ content }}
     </div>
     {% unless page.draft %}
+        <div id="comments-break"></div>
         <div id="disqus_thread"></div>
         <script>
             var disqus_shortname = 'earwig';
